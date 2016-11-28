@@ -36,7 +36,6 @@ static const uint32_t targetCategory        =  0x1 << 1;
         // 3 Set the friction of that physicsBody to 0
         self.physicsBody.friction = 0.0f;
 
-        
         // 2
         NSLog(@"Size: %@", NSStringFromCGSize(size));
         
@@ -87,10 +86,7 @@ static const uint32_t targetCategory        =  0x1 << 1;
     target.physicsBody.contactTestBitMask = projectileCategory; // 4
     target.physicsBody.collisionBitMask = 0; // 5
     // Determine where to spawn the monster along the Y axis
-    int minY = target.size.height ;
-    int maxY = self.frame.size.height - target.size.height;
-    int rangeY = maxY - minY;
-    int actualY = (arc4random() % rangeY) + minY;
+    int maxY = self.frame.size.height;
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
@@ -104,7 +100,7 @@ static const uint32_t targetCategory        =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, actualY) duration:actualDuration];
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:actualDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     
@@ -169,12 +165,6 @@ static inline CGPoint rwNormalize(CGPoint a) {
     self.bulletNode.physicsBody.usesPreciseCollisionDetection = YES;
     // 3- Determine offset of location to projectile
     CGPoint offset = rwSub(location, self.bulletNode.position);
-    
-    // 4 - Bail out if you are shooting down or backwards
-    if (offset.x <= 0) return;
-    
-    // 5 - OK to add now - we've double checked position
-    //[self addChild:self.bulletNode];
     
     // 6 - Get the direction of where to shoot
     CGPoint direction = rwNormalize(offset);
