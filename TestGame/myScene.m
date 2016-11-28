@@ -149,7 +149,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     self.lastSpawnTimeInterval += timeSinceLast;
     if (self.lastSpawnTimeInterval > 2) {
         self.lastSpawnTimeInterval = 0;
-//        [self addMonster];
+        [self addMonster];
     }
 }
 - (void)update:(NSTimeInterval)currentTime {
@@ -239,15 +239,15 @@ static inline CGPoint rwNormalize(CGPoint a) {
     
 }
 //contact with powerup
-//- (void)thePowerUp:(SKSpriteNode *)thePowerUp didcolideWithPowerUp:(SKSpriteNode *)powerUp {
-//    NSLog(@"power up!!");
-//    [self.powerUp removeFromParent];
-//    [powerUp removeFromParent];
-//    self.superBullet = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
-//    self.superBullet.position = CGPointMake(200, 30);
-//    [self addChild:self.superBullet];
-//    
-//}
+- (void)thePowerUp:(SKSpriteNode *)thePowerUp didcolideWithPowerUp:(SKSpriteNode *)powerUp {
+    NSLog(@"power up!!");
+    [self.powerUp removeFromParent];
+    [powerUp removeFromParent];
+    self.superBullet = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
+    self.superBullet.position = CGPointMake(200, 30);
+    [self addChild:self.superBullet];
+    
+}
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
@@ -273,10 +273,11 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self projectile:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
         if([secondBody.node.name  isEqual: @"powerup"]){
             NSLog(@"bullet hit powerup");
-            [self.powerUp removeFromParent];
-            self.superBullet = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
-            self.superBullet.position = CGPointMake(200, 30);
-            [self addChild:self.superBullet];
+//            [self.powerUp removeFromParent];
+//            self.superBullet = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
+//            self.superBullet.position = CGPointMake(200, 30);
+//            [self addChild:self.superBullet];
+            [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
         }
 
     }
