@@ -12,4 +12,9 @@
 
 @interface GameViewController : UIViewController
 
+
+//TEST HI DOES THIS WORK
+
+@property NSString *test;
+
 @end
