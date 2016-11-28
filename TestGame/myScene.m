@@ -198,6 +198,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     NSLog(@"Hit");
     [self.bulletNode removeFromParent];
     [monster removeFromParent];
+    self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
     self.bulletNode.position = CGPointMake(200, 30);
     [self addChild:self.bulletNode];
 
