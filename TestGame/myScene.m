@@ -112,10 +112,7 @@ static const uint32_t targetCategory        =  0x1 << 1;
     target.physicsBody.contactTestBitMask = projectileCategory; // 4
     target.physicsBody.collisionBitMask = 0; // 5
     // Determine where to spawn the monster along the Y axis
-    int minY = target.size.height ;
-    int maxY = self.frame.size.height - target.size.height;
-    int rangeY = maxY - minY;
-    int actualY = (arc4random() % rangeY) + minY;
+    int maxY = self.frame.size.height;
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
@@ -129,7 +126,7 @@ static const uint32_t targetCategory        =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, actualY) duration:actualDuration];
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:actualDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     
