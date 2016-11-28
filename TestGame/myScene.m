@@ -33,7 +33,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     if (self = [super initWithSize:size]) {
         
         
-
+        
         // 1 Create a physics body that borders the screen
         SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         // 2 Set physicsBody of scene to borderBody
@@ -41,7 +41,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         borderBody.node.name = @"wall";
         // 3 Set the friction of that physicsBody to 0
         self.physicsBody.friction = 0.0f;
-
+        
         
         
         
@@ -53,7 +53,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
         [self addChild:bgImage];
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
-
+        
         
         //adding the powerup
         self.powerUp = [SKSpriteNode spriteNodeWithImageNamed:@"powerup"];
@@ -61,7 +61,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.powerUp.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/3);
         [self addChild:self.powerUp];
         self.powerUp.physicsBody.dynamic = YES; // 2
-
+        
         self.powerUp.physicsBody.categoryBitMask = powerUpCategory; // 3
         self.powerUp.physicsBody.contactTestBitMask = projectileCategory; // 4
         self.powerUp.physicsBody.collisionBitMask = 0;
@@ -76,7 +76,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         // 6
         self.powerUp.physicsBody.allowsRotation = NO;
         [self.powerUp.physicsBody applyImpulse:CGVectorMake(10.0f, -10.0f)];
-
+        
         
         
         
@@ -94,7 +94,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.leftAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft2"];
         self.leftAmp2.position = CGPointMake(350, 300);
         [self addChild:self.leftAmp2];
-
+        
         self.rightAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright"];
         self.rightAmp1.position = CGPointMake(50, 465);
         [self addChild:self.rightAmp1];
@@ -102,11 +102,11 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.rightAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright2"];
         self.rightAmp2.position = CGPointMake(50, 365);
         [self addChild:self.rightAmp2];
-
-//        self.target = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
-//        self.target.position = CGPointMake(200, 700);
-//        [self addChild:self.target];
-
+        
+        //        self.target = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
+        //        self.target.position = CGPointMake(200, 700);
+        //        [self addChild:self.target];
+        
         
     }
     
@@ -193,7 +193,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     CGPoint location = [touch locationInNode:self];
     
     // 2 - Set up initial location of projectile
-//    SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
+    //    SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
     self.bulletNode.position = self.bulletNode.position;
     self.bulletNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.bulletNode.size.width/2];
     self.bulletNode.physicsBody.dynamic = YES;
@@ -205,7 +205,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     CGPoint offset = rwSub(location, self.bulletNode.position);
     
     // 4 - Bail out if you are shooting down or backwards
-//    if (offset.x <= 0) return;
+    //    if (offset.x <= 0) return;
     
     // 5 - OK to add now - we've double checked position
     //[self addChild:self.bulletNode];
@@ -235,7 +235,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
     self.bulletNode.position = CGPointMake(200, 30);
     [self addChild:self.bulletNode];
-
+    
     
 }
 //contact with powerup
@@ -273,13 +273,12 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self projectile:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
         if([secondBody.node.name  isEqual: @"powerup"]){
             NSLog(@"bullet hit powerup");
-//            [self.powerUp removeFromParent];
-//            self.superBullet = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
-//            self.superBullet.position = CGPointMake(200, 30);
-//            [self addChild:self.superBullet];
+            
             [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
+        }else if ([secondBody.node.name isEqual:@"wall"]){
+            NSLog(@"RETRY");
         }
-
+        
     }
 }
 @end
