@@ -10,7 +10,7 @@
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t targetCategory        =  0x1 << 1;
 @interface myScene ()<SKPhysicsContactDelegate>
-@property (nonatomic) SKSpriteNode * player;
+@property (nonatomic) SKSpriteNode * bulletNode;
 @property (nonatomic) SKSpriteNode * leftAmp1;
 @property (nonatomic) SKSpriteNode * leftAmp2;
 @property (nonatomic) SKSpriteNode * rightAmp1;
@@ -27,6 +27,16 @@ static const uint32_t targetCategory        =  0x1 << 1;
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         
+        
+
+        // 1 Create a physics body that borders the screen
+        SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+        // 2 Set physicsBody of scene to borderBody
+        self.physicsBody = borderBody;
+        // 3 Set the friction of that physicsBody to 0
+        self.physicsBody.friction = 0.0f;
+
+        
         // 2
         NSLog(@"Size: %@", NSStringFromCGSize(size));
         
@@ -36,9 +46,9 @@ static const uint32_t targetCategory        =  0x1 << 1;
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
 
         // 4
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
-        self.player.position = CGPointMake(200, 30);
-        [self addChild:self.player];
+        self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
+        self.bulletNode.position = CGPointMake(200, 30);
+        [self addChild:self.bulletNode];
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
         self.leftAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft1"];
@@ -103,7 +113,7 @@ static const uint32_t targetCategory        =  0x1 << 1;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     
     self.lastSpawnTimeInterval += timeSinceLast;
-    if (self.lastSpawnTimeInterval > 5) {
+    if (self.lastSpawnTimeInterval > 2) {
         self.lastSpawnTimeInterval = 0;
         [self addMonster];
     }
@@ -149,22 +159,22 @@ static inline CGPoint rwNormalize(CGPoint a) {
     CGPoint location = [touch locationInNode:self];
     
     // 2 - Set up initial location of projectile
-    SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
-    projectile.position = self.player.position;
-    projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
-    projectile.physicsBody.dynamic = YES;
-    projectile.physicsBody.categoryBitMask = projectileCategory;
-    projectile.physicsBody.contactTestBitMask = targetCategory;
-    projectile.physicsBody.collisionBitMask = 0;
-    projectile.physicsBody.usesPreciseCollisionDetection = YES;
+//    SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
+    self.bulletNode.position = self.bulletNode.position;
+    self.bulletNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.bulletNode.size.width/2];
+    self.bulletNode.physicsBody.dynamic = YES;
+    self.bulletNode.physicsBody.categoryBitMask = projectileCategory;
+    self.bulletNode.physicsBody.contactTestBitMask = targetCategory;
+    self.bulletNode.physicsBody.collisionBitMask = 0;
+    self.bulletNode.physicsBody.usesPreciseCollisionDetection = YES;
     // 3- Determine offset of location to projectile
-    CGPoint offset = rwSub(location, projectile.position);
+    CGPoint offset = rwSub(location, self.bulletNode.position);
     
     // 4 - Bail out if you are shooting down or backwards
     if (offset.x <= 0) return;
     
     // 5 - OK to add now - we've double checked position
-    [self addChild:projectile];
+    //[self addChild:self.bulletNode];
     
     // 6 - Get the direction of where to shoot
     CGPoint direction = rwNormalize(offset);
@@ -173,21 +183,25 @@ static inline CGPoint rwNormalize(CGPoint a) {
     CGPoint shootAmount = rwMult(direction, 1000);
     
     // 8 - Add the shoot amount to the current position
-    CGPoint realDest = rwAdd(shootAmount, projectile.position);
+    CGPoint realDest = rwAdd(shootAmount, self.bulletNode.position);
     
     // 9 - Create the actions
     float velocity = 480.0/1.0;
     float realMoveDuration = self.size.width / velocity;
     SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
-    [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+    [self.bulletNode runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     
 }
 
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)monster {
     NSLog(@"Hit");
-    [projectile removeFromParent];
+    [self.bulletNode removeFromParent];
     [monster removeFromParent];
+    self.bulletNode.position = CGPointMake(200, 30);
+    [self addChild:self.bulletNode];
+
+    
 }
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
