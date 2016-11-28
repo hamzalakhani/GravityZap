@@ -18,6 +18,7 @@ static const uint32_t targetCategory        =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * target;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
+@property (nonatomic) SKSpriteNode * powerUp;
 
 
 @end
@@ -37,6 +38,9 @@ static const uint32_t targetCategory        =  0x1 << 1;
         self.physicsBody.friction = 0.0f;
 
         
+        
+        
+        
         // 2
         NSLog(@"Size: %@", NSStringFromCGSize(size));
         
@@ -45,6 +49,27 @@ static const uint32_t targetCategory        =  0x1 << 1;
         [self addChild:bgImage];
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
 
+        
+        //adding the powerup
+        self.powerUp = [SKSpriteNode spriteNodeWithImageNamed:@"powerup"];
+        
+        self.powerUp.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/3);
+        [self addChild:self.powerUp];
+        // 2
+        self.powerUp.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.powerUp.frame.size.width/2];
+        // 3
+        self.powerUp.physicsBody.friction = 0.0f;
+        // 4
+        self.powerUp.physicsBody.restitution = 1.0f;
+        // 5
+        self.powerUp.physicsBody.linearDamping = 0.0f;
+        // 6
+        self.powerUp.physicsBody.allowsRotation = NO;
+        [self.powerUp.physicsBody applyImpulse:CGVectorMake(10.0f, -10.0f)];
+
+        
+        
+        
         // 4
         self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
         self.bulletNode.position = CGPointMake(200, 30);
@@ -171,7 +196,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     CGPoint offset = rwSub(location, self.bulletNode.position);
     
     // 4 - Bail out if you are shooting down or backwards
-    if (offset.x <= 0) return;
+//    if (offset.x <= 0) return;
     
     // 5 - OK to add now - we've double checked position
     //[self addChild:self.bulletNode];

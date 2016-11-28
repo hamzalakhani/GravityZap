@@ -16,6 +16,7 @@
 		CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CABC60861DEA5F0C00CC1AEE /* Assets.xcassets */; };
 		CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CABC60881DEA5F0C00CC1AEE /* LaunchScreen.storyboard */; };
 		CABC60931DEA63E200CC1AEE /* myScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60921DEA63E200CC1AEE /* myScene.m */; };
+		CABC60C21DECC5DA00CC1AEE /* MyScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC60C11DECC5DA00CC1AEE /* MyScene.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		CABC608B1DEA5F0C00CC1AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CABC60911DEA63E200CC1AEE /* myScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myScene.h; sourceTree = "<group>"; };
 		CABC60921DEA63E200CC1AEE /* myScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myScene.m; sourceTree = "<group>"; };
+		CABC60C11DECC5DA00CC1AEE /* MyScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyScene.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				CABC607B1DEA5F0C00CC1AEE /* Actions.sks */,
 				CABC607D1DEA5F0C00CC1AEE /* GameScene.h */,
 				CABC607E1DEA5F0C00CC1AEE /* GameScene.m */,
+				CABC60C11DECC5DA00CC1AEE /* MyScene.sks */,
 				CABC60911DEA63E200CC1AEE /* myScene.h */,
 				CABC60921DEA63E200CC1AEE /* myScene.m */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
@@ -153,6 +156,7 @@
 			files = (
 				CABC60851DEA5F0C00CC1AEE /* Main.storyboard in Resources */,
 				CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */,
+				CABC60C21DECC5DA00CC1AEE /* MyScene.sks in Resources */,
 				CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */,
 				CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */,
 			);
@@ -326,6 +330,7 @@
 				CABC60901DEA5F0C00CC1AEE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
