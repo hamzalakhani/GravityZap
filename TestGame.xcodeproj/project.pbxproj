@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		CABC60751DEA5F0C00CC1AEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60741DEA5F0C00CC1AEE /* main.m */; };
 		CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */; };
-		CABC607A1DEA5F0C00CC1AEE /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC60791DEA5F0C00CC1AEE /* GameScene.sks */; };
 		CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC607B1DEA5F0C00CC1AEE /* Actions.sks */; };
 		CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC607E1DEA5F0C00CC1AEE /* GameScene.m */; };
 		CABC60821DEA5F0C00CC1AEE /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60811DEA5F0C00CC1AEE /* GameViewController.m */; };
 		CABC60851DEA5F0C00CC1AEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CABC60831DEA5F0C00CC1AEE /* Main.storyboard */; };
 		CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CABC60861DEA5F0C00CC1AEE /* Assets.xcassets */; };
 		CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CABC60881DEA5F0C00CC1AEE /* LaunchScreen.storyboard */; };
+		CABC60931DEA63E200CC1AEE /* myScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60921DEA63E200CC1AEE /* myScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,6 @@
 		CABC60741DEA5F0C00CC1AEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CABC60791DEA5F0C00CC1AEE /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CABC607B1DEA5F0C00CC1AEE /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		CABC607D1DEA5F0C00CC1AEE /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		CABC607E1DEA5F0C00CC1AEE /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
@@ -33,6 +32,8 @@
 		CABC60861DEA5F0C00CC1AEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CABC60891DEA5F0C00CC1AEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CABC608B1DEA5F0C00CC1AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CABC60911DEA63E200CC1AEE /* myScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myScene.h; sourceTree = "<group>"; };
+		CABC60921DEA63E200CC1AEE /* myScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,10 +68,11 @@
 			children = (
 				CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */,
 				CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */,
-				CABC60791DEA5F0C00CC1AEE /* GameScene.sks */,
 				CABC607B1DEA5F0C00CC1AEE /* Actions.sks */,
 				CABC607D1DEA5F0C00CC1AEE /* GameScene.h */,
 				CABC607E1DEA5F0C00CC1AEE /* GameScene.m */,
+				CABC60911DEA63E200CC1AEE /* myScene.h */,
+				CABC60921DEA63E200CC1AEE /* myScene.m */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
 				CABC60831DEA5F0C00CC1AEE /* Main.storyboard */,
@@ -150,7 +152,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABC60851DEA5F0C00CC1AEE /* Main.storyboard in Resources */,
-				CABC607A1DEA5F0C00CC1AEE /* GameScene.sks in Resources */,
 				CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */,
 				CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */,
 				CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */,
@@ -168,6 +169,7 @@
 				CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */,
 				CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */,
 				CABC60751DEA5F0C00CC1AEE /* main.m in Sources */,
+				CABC60931DEA63E200CC1AEE /* myScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
