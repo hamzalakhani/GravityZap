@@ -7,6 +7,7 @@
 //
 
 #import "myScene.h"
+#import "RetryScene.h"
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t targetCategory        =  0x1 << 1;
 static const uint32_t powerUpCategory     =  0x1 << 1;
@@ -276,8 +277,8 @@ static inline CGPoint rwNormalize(CGPoint a) {
             
             [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
         }else if ([secondBody.node.name isEqual:@"wall"]){
-            NSLog(@"RETRY");
-        }
+            RetryScene* retryScene = [[RetryScene alloc] initWithSize:self.frame.size playerWon:NO];
+            [self.view presentScene:retryScene];        }
         
     }
 }

@@ -9,7 +9,7 @@
 #import "GameViewController.h"
 #import "GameScene.h"
 #import "myScene.h"
-
+@import AVFoundation;
 @implementation GameViewController
 
 - (void)viewDidLoad {
