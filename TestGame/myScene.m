@@ -150,6 +150,18 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     self.lastSpawnTimeInterval += timeSinceLast;
     if (self.lastSpawnTimeInterval > 2) {
         self.lastSpawnTimeInterval = 0;
+        //apply force to bullet
+        int randomXDirection = arc4random_uniform(20) + 100;
+        int randomNegative = arc4random_uniform(1);
+        if (randomNegative == 0) {
+            randomXDirection = randomXDirection * - 1;
+        }
+        SKAction * actionMove = [SKAction runBlock:^{
+            [self.bulletNode.physicsBody applyForce:CGVectorMake(randomXDirection, 0)];
+        }];
+        [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
+        
+        //add target
         [self addMonster];
     }
 }
@@ -165,33 +177,33 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
     
 }
-
-static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
-    return CGPointMake(a.x + b.x, a.y + b.y);
-}
-
-static inline CGPoint rwSub(CGPoint a, CGPoint b) {
-    return CGPointMake(a.x - b.x, a.y - b.y);
-}
-
-static inline CGPoint rwMult(CGPoint a, float b) {
-    return CGPointMake(a.x * b, a.y * b);
-}
-
-static inline float rwLength(CGPoint a) {
-    return sqrtf(a.x * a.x + a.y * a.y);
-}
-
-// Makes a vector have a length of 1
-static inline CGPoint rwNormalize(CGPoint a) {
-    float length = rwLength(a);
-    return CGPointMake(a.x / length, a.y / length);
-}
+//
+//static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
+//    return CGPointMake(a.x + b.x, a.y + b.y);
+//}
+//
+//static inline CGPoint rwSub(CGPoint a, CGPoint b) {
+//    return CGPointMake(a.x - b.x, a.y - b.y);
+//}
+//
+//static inline CGPoint rwMult(CGPoint a, float b) {
+//    return CGPointMake(a.x * b, a.y * b);
+//}
+//
+//static inline float rwLength(CGPoint a) {
+//    return sqrtf(a.x * a.x + a.y * a.y);
+//}
+//
+//// Makes a vector have a length of 1
+//static inline CGPoint rwNormalize(CGPoint a) {
+//    float length = rwLength(a);
+//    return CGPointMake(a.x / length, a.y / length);
+//}
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     // 1 - Choose one of the touches to work with
     UITouch * touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
+    //CGPoint location = [touch locationInNode:self];
     
     // 2 - Set up initial location of projectile
     //    SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
@@ -202,30 +214,31 @@ static inline CGPoint rwNormalize(CGPoint a) {
     self.bulletNode.physicsBody.contactTestBitMask = targetCategory;
     self.bulletNode.physicsBody.collisionBitMask = 0;
     self.bulletNode.physicsBody.usesPreciseCollisionDetection = YES;
-    // 3- Determine offset of location to projectile
-    CGPoint offset = rwSub(location, self.bulletNode.position);
-    
-    // 4 - Bail out if you are shooting down or backwards
-    //    if (offset.x <= 0) return;
-    
-    // 5 - OK to add now - we've double checked position
-    //[self addChild:self.bulletNode];
-    
-    // 6 - Get the direction of where to shoot
-    CGPoint direction = rwNormalize(offset);
-    
-    // 7 - Make it shoot far enough to be guaranteed off screen
-    CGPoint shootAmount = rwMult(direction, 1000);
-    
-    // 8 - Add the shoot amount to the current position
-    CGPoint realDest = rwAdd(shootAmount, self.bulletNode.position);
+//    // 3- Determine offset of location to projectile
+//    CGPoint offset = rwSub(location, self.bulletNode.position);
+//    
+//    // 4 - Bail out if you are shooting down or backwards
+//    //    if (offset.x <= 0) return;
+//    
+//    // 5 - OK to add now - we've double checked position
+//    //[self addChild:self.bulletNode];
+//    
+//    // 6 - Get the direction of where to shoot
+//    CGPoint direction = rwNormalize(offset);
+//    
+//    // 7 - Make it shoot far enough to be guaranteed off screen
+//    CGPoint shootAmount = rwMult(direction, 1000);
+//    
+//    // 8 - Add the shoot amount to the current position
+//    CGPoint realDest = rwAdd(shootAmount, self.bulletNode.position);
     
     // 9 - Create the actions
-    float velocity = 480.0/1.0;
-    float realMoveDuration = self.size.width / velocity;
-    SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
-    SKAction * actionMoveDone = [SKAction removeFromParent];
-    [self.bulletNode runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+    //float velocity = 480.0/1.0;
+    //float realMoveDuration = self.size.width / velocity;
+    SKAction * actionMove = [SKAction runBlock:^{
+        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 200)];
+    }];
+    [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
     
 }
 
