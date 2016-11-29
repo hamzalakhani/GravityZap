@@ -152,8 +152,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.lastSpawnTimeInterval = 0;
         //apply force to bullet
         int randomXDirection = arc4random_uniform(20) + 100;
-        int randomNegative = arc4random_uniform(1);
-        if (randomNegative == 0) {
+        int randomNegative = arc4random_uniform(2) + 1;
+        if (randomNegative == 1) {
             randomXDirection = randomXDirection * - 1;
         }
         SKAction * actionMove = [SKAction runBlock:^{
