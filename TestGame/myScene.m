@@ -24,7 +24,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) SKSpriteNode * powerUp;
-
+@property (nonatomic) SKSpriteNode * scoreBoard;
+@property (nonatomic) int scoreValue;
 
 @end
 
@@ -33,6 +34,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         
+        self.scoreValue = 0;
         
         
         // 1 Create a physics body that borders the screen
@@ -108,6 +110,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         //        self.target.position = CGPointMake(200, 700);
         //        [self addChild:self.target];
         
+        //Add score
+        self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score0"];
+        self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+        [self addChild:self.scoreBoard];
         
     }
     
@@ -125,7 +131,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     target.physicsBody.contactTestBitMask = projectileCategory; // 4
     target.physicsBody.collisionBitMask = 0; // 5
     // Determine where to spawn the monster along the Y axis
-    int maxY = self.frame.size.height;
+    int maxY = self.frame.size.height - 20;
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
@@ -244,6 +250,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)monster {
     NSLog(@"Hit");
+    
     [self.bulletNode removeFromParent];
     [monster removeFromParent];
     self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
@@ -285,14 +292,126 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     {
         
         [self projectile:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
+        
         if([secondBody.node.name  isEqual: @"powerup"]){
             NSLog(@"bullet hit powerup");
             
             [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
         }else if ([secondBody.node.name isEqual:@"wall"]){
             RetryScene* retryScene = [[RetryScene alloc] initWithSize:self.frame.size playerWon:NO];
-            [self.view presentScene:retryScene];        }
+            [self.view presentScene:retryScene];
+        }else {
+            
+            self.scoreValue += 1;
+            
+            switch (self.scoreValue) {
+                case 1:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score1"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                case 2:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score2"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 3:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score3"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 4:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score4"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 5:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score5"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 6:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score6"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 7:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score7"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 8:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score8"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 9:
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score9"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                case 10:
+                    
+                    //NEXT LEVEL
+//                    [self.scoreBoard removeFromParent];
+//                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score1"];
+//                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+//                    [self addChild:self.scoreBoard];
+                    
+                    break;
+                    
+                default:
+                    
+                    self.scoreValue = 0;
+                    
+                    [self.scoreBoard removeFromParent];
+                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score1"];
+                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    [self addChild:self.scoreBoard];
+                    
+                    break;
+            }
+            
+            
+        }
         
     }
+    
 }
+
 @end

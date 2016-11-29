@@ -9,5 +9,6 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface myScene : SKScene
+
 -(void)addMonster;
 @end
