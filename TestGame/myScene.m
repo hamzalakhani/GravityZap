@@ -242,7 +242,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     //float velocity = 480.0/1.0;
     //float realMoveDuration = self.size.width / velocity;
     SKAction * actionMove = [SKAction runBlock:^{
-        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 200)];
+        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 500)];
     }];
     [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
     
