@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793441DEDEBB7003B6620 /* RetryScene.m */; };
 		CABC60751DEA5F0C00CC1AEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60741DEA5F0C00CC1AEE /* main.m */; };
 		CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */; };
 		CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC607B1DEA5F0C00CC1AEE /* Actions.sks */; };
@@ -17,10 +18,11 @@
 		CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CABC60881DEA5F0C00CC1AEE /* LaunchScreen.storyboard */; };
 		CABC60931DEA63E200CC1AEE /* myScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60921DEA63E200CC1AEE /* myScene.m */; };
 		CABC60C21DECC5DA00CC1AEE /* MyScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC60C11DECC5DA00CC1AEE /* MyScene.sks */; };
-		CABC60C51DEDE35100CC1AEE /* RetryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60C41DEDE35100CC1AEE /* RetryScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA8793431DEDEBB7003B6620 /* RetryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryScene.h; sourceTree = "<group>"; };
+		CA8793441DEDEBB7003B6620 /* RetryScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryScene.m; sourceTree = "<group>"; };
 		CABC60701DEA5F0C00CC1AEE /* TestGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABC60741DEA5F0C00CC1AEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -37,8 +39,6 @@
 		CABC60911DEA63E200CC1AEE /* myScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myScene.h; sourceTree = "<group>"; };
 		CABC60921DEA63E200CC1AEE /* myScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myScene.m; sourceTree = "<group>"; };
 		CABC60C11DECC5DA00CC1AEE /* MyScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyScene.sks; sourceTree = "<group>"; };
-		CABC60C31DEDE35100CC1AEE /* RetryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryScene.h; sourceTree = "<group>"; };
-		CABC60C41DEDE35100CC1AEE /* RetryScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +79,8 @@
 				CABC60C11DECC5DA00CC1AEE /* MyScene.sks */,
 				CABC60911DEA63E200CC1AEE /* myScene.h */,
 				CABC60921DEA63E200CC1AEE /* myScene.m */,
-				CABC60C31DEDE35100CC1AEE /* RetryScene.h */,
-				CABC60C41DEDE35100CC1AEE /* RetryScene.m */,
+				CA8793431DEDEBB7003B6620 /* RetryScene.h */,
+				CA8793441DEDEBB7003B6620 /* RetryScene.m */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
 				CABC60831DEA5F0C00CC1AEE /* Main.storyboard */,
@@ -175,7 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABC60821DEA5F0C00CC1AEE /* GameViewController.m in Sources */,
-				CABC60C51DEDE35100CC1AEE /* RetryScene.m in Sources */,
+				CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */,
 				CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */,
 				CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */,
 				CABC60751DEA5F0C00CC1AEE /* main.m in Sources */,

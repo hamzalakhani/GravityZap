@@ -10,5 +10,4 @@
 
 @interface RetryScene : SKScene
 -(id)initWithSize:(CGSize)size playerWon:(BOOL)isWon;
-
 @end
