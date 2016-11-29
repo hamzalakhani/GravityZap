@@ -8,20 +8,24 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
-#import "myScene.h"
+#import "StartScene.h"
 @import AVFoundation;
+
+@interface GameViewController ()
+@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+@end
 @implementation GameViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Load the SKScene from 'GameScene.sks'
-//    GameScene *scene = (GameScene *)[SKScene nodeWithFileNamed:@"GameScene"];
+    StartScene *scene = (StartScene *)[SKScene nodeWithFileNamed:@"StartScene"];
     
     // Set the scale mode to scale to fit the window
     SKView *skView = (SKView *)self.view;
 
-    SKScene * scene = [myScene sceneWithSize:skView.bounds.size];
+//    SKScene * scene = [StartScene sceneWithSize:skView.bounds.size];
 
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
@@ -53,5 +57,7 @@
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+
+
 
 @end
