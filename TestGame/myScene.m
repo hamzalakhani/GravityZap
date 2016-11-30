@@ -26,6 +26,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * powerUp;
 @property (nonatomic) SKSpriteNode * scoreBoard;
 @property (nonatomic) int scoreValue;
+@property (nonatomic) int count;
 
 @end
 
@@ -125,7 +126,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     // Create sprite
     SKSpriteNode * target = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
     target.name = @"target";
-    target.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:target.size]; // 1
+    target.size = CGSizeMake(80, 80);
+    target.texture = [SKTexture textureWithImageNamed:@"Target"];
+    target.physicsBody = [SKPhysicsBody bodyWithTexture:target.texture size:target.size]; // 1
     target.physicsBody.dynamic = YES; // 2
     target.physicsBody.categoryBitMask = targetCategory; // 3
     target.physicsBody.contactTestBitMask = projectileCategory; // 4
@@ -145,10 +148,43 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:actualDuration];
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:minDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     
+}
+
+-(void)addBlueChip {
+    
+    // Create sprite
+    SKSpriteNode * target = [SKSpriteNode spriteNodeWithImageNamed:@"blueChip"];
+    target.name = @"blueChip";
+    target.size = CGSizeMake(80, 80);
+    target.texture = [SKTexture textureWithImageNamed:@"blueChip"];
+    target.physicsBody = [SKPhysicsBody bodyWithTexture:target.texture size:target.size]; // 1
+    target.physicsBody.dynamic = YES; // 2
+    target.physicsBody.categoryBitMask = targetCategory; // 3
+    target.physicsBody.contactTestBitMask = projectileCategory; // 4
+    target.physicsBody.collisionBitMask = 0; // 5
+    // Determine where to spawn the monster along the Y axis
+    int maxY = self.frame.size.height - 20;
+    
+    // Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    target.position = CGPointMake(self.frame.size.width + target.size.width, maxY);
+    [self addChild:target];
+    
+    // Determine speed of the monster
+    int minDuration = 2.0;
+    int maxDuration = 4.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    // Create the actions
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:minDuration];
+    SKAction * actionMoveDone = [SKAction removeFromParent];
+    [target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
@@ -168,9 +204,35 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
         
         //add target
-        [self addMonster];
+        
     }
+    
 }
+
+-(void)updateTargetWithTime:(CFTimeInterval)timeSinceLast {
+    
+    self.lastSpawnTimeInterval += timeSinceLast;
+    
+    srand48(time(0));
+    double randomTime = drand48() + 1;
+    
+    if (self.lastSpawnTimeInterval > randomTime) {
+        self.lastSpawnTimeInterval = 0;
+       
+        int randomChip = arc4random_uniform(5) + 2;
+        //add target
+        if (self.count > randomChip) {
+            [self addBlueChip];
+            self.count = 0;
+        } else {
+            [self addMonster];
+            self.count += 1;
+        }
+        
+    }
+    
+}
+
 - (void)update:(NSTimeInterval)currentTime {
     // Handle time delta.
     // If we drop below 60fps, we still want everything to move the same distance.
@@ -181,6 +243,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.lastUpdateTimeInterval = currentTime;
     }
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
+    [self updateTargetWithTime:timeSinceLast];
     
 }
 //
