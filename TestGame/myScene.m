@@ -8,7 +8,7 @@
 
 #import "myScene.h"
 #import "RetryScene.h"
-#import "PausePlay.h"
+@import UIKit;
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t blueChipCategory        =  0x1 << 1;
 static const uint32_t targetCategory        =  0x1 << 1;
@@ -53,8 +53,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
         [self initDogRightAnimation];
         [self initDogLeftAnimation];
-
-        self.scoreValue = 0;
+        
         
         self.duck = [[NSMutableArray alloc]init];
         
@@ -105,22 +104,22 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
         
-//        self.leftAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft1"];
-//        self.leftAmp1.position = CGPointMake(350, 400);
-//        [self addChild:self.leftAmp1];
-//        
-//        self.leftAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft2"];
-//        self.leftAmp2.position = CGPointMake(350, 300);
-//        [self addChild:self.leftAmp2];
-//        
-//        self.rightAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright"];
-//        self.rightAmp1.position = CGPointMake(50, 465);
-//        [self addChild:self.rightAmp1];
-//        
-//        self.rightAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright2"];
-//        self.rightAmp2.position = CGPointMake(50, 365);
-//        [self addChild:self.rightAmp2];
-//        
+        //        self.leftAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft1"];
+        //        self.leftAmp1.position = CGPointMake(350, 400);
+        //        [self addChild:self.leftAmp1];
+        //
+        //        self.leftAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft2"];
+        //        self.leftAmp2.position = CGPointMake(350, 300);
+        //        [self addChild:self.leftAmp2];
+        //
+        //        self.rightAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright"];
+        //        self.rightAmp1.position = CGPointMake(50, 465);
+        //        [self addChild:self.rightAmp1];
+        //
+        //        self.rightAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright2"];
+        //        self.rightAmp2.position = CGPointMake(50, 365);
+        //        [self addChild:self.rightAmp2];
+        //
         //        self.target = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
         //        self.target.position = CGPointMake(200, 700);
         //        [self addChild:self.target];
@@ -164,7 +163,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 -(void)addMonster {
     
     // Create sprite
-
+    
     self.target = [SKSpriteNode spriteNodeWithImageNamed:@"ducktarget1"];
     self.target.name = @"target";
     self.target.size = CGSizeMake(80, 80);
@@ -174,7 +173,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     self.target.physicsBody.categoryBitMask = targetCategory; // 3
     self.target.physicsBody.contactTestBitMask = projectileCategory; // 4
     self.target.physicsBody.collisionBitMask = 0; // 5
-
+    
     // Determine where to spawn the monster along the Y axis
     int maxY = self.frame.size.height - 20;
     
@@ -190,11 +189,11 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-
+    
     SKAction * actionMove = [SKAction moveTo:CGPointMake(-self.target.size.width/2, maxY) duration:minDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [self.target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-
+    
     
 }
 
@@ -228,7 +227,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     SKAction * actionMove = [SKAction moveTo:CGPointMake(-self.blueChip.size.width/2, maxY) duration:minDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [self.blueChip runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-
+    
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
@@ -284,7 +283,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     
     if (self.lastTargetSpawnTimeInterval > randomTime) {
         self.lastTargetSpawnTimeInterval = 0;
-       
+        
         int randomChip = arc4random_uniform(5) + 2;
         //add target
         if (self.count > randomChip) {
@@ -349,23 +348,23 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     self.bulletNode.physicsBody.contactTestBitMask = targetCategory;
     self.bulletNode.physicsBody.collisionBitMask = 0;
     self.bulletNode.physicsBody.usesPreciseCollisionDetection = YES;
-//    // 3- Determine offset of location to projectile
-//    CGPoint offset = rwSub(location, self.bulletNode.position);
-//    
-//    // 4 - Bail out if you are shooting down or backwards
-//    //    if (offset.x <= 0) return;
-//    
-//    // 5 - OK to add now - we've double checked position
-//    //[self addChild:self.bulletNode];
-//    
-//    // 6 - Get the direction of where to shoot
-//    CGPoint direction = rwNormalize(offset);
-//    
-//    // 7 - Make it shoot far enough to be guaranteed off screen
-//    CGPoint shootAmount = rwMult(direction, 1000);
-//    
-//    // 8 - Add the shoot amount to the current position
-//    CGPoint realDest = rwAdd(shootAmount, self.bulletNode.position);
+    //    // 3- Determine offset of location to projectile
+    //    CGPoint offset = rwSub(location, self.bulletNode.position);
+    //
+    //    // 4 - Bail out if you are shooting down or backwards
+    //    //    if (offset.x <= 0) return;
+    //
+    //    // 5 - OK to add now - we've double checked position
+    //    //[self addChild:self.bulletNode];
+    //
+    //    // 6 - Get the direction of where to shoot
+    //    CGPoint direction = rwNormalize(offset);
+    //
+    //    // 7 - Make it shoot far enough to be guaranteed off screen
+    //    CGPoint shootAmount = rwMult(direction, 1000);
+    //
+    //    // 8 - Add the shoot amount to the current position
+    //    CGPoint realDest = rwAdd(shootAmount, self.bulletNode.position);
     
     // 9 - Create the actions
     //float velocity = 480.0/1.0;
@@ -432,7 +431,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
             [self shrinkAndMoveToPosition:self.view.center];
             
             [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
-
+            
         }else if ([secondBody.node.name isEqual:@"blueChip"]){
             
             switch (self.scoreValue) {
@@ -519,10 +518,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
                 case 10:
                     
                     //NEXT LEVEL
-//                    [self.scoreBoard removeFromParent];
-//                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score1"];
-//                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
-//                    [self addChild:self.scoreBoard];
+                    //                    [self.scoreBoard removeFromParent];
+                    //                    self.scoreBoard = [SKSpriteNode spriteNodeWithImageNamed:@"score1"];
+                    //                    self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
+                    //                    [self addChild:self.scoreBoard];
                     
                     break;
                     
@@ -548,33 +547,40 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     }
     
 }
-//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    for (UITouch *touch in touches){
-//       If( PausePlay* pauseScene = [[PausePlay alloc]initWithSize:self.frame.size isOn:YES]);
-//        [self.view presentScene:retryScene];
-//        CGPoint location = [touch locationInNode:self];
-//        if([self.pauseButton containsPoint:location]){
-//            self.scene.view.paused = YES;
-//
-//        }
-//    }
-//
-//
-//}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches){
+        self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pause"];
+
+        self.pauseButton.size = CGSizeMake(50, 50);
+        self.pauseButton.position = CGPointMake( 20, self.frame.size.height - 25);
+        [self addChild:self.pauseButton];
+        CGPoint location = [touch locationInNode:self];
+        if([self.pauseButton containsPoint:location]){
+            self.scene.view.paused = YES;
+        }else(){
+
+
+                self.scene.view.paused = NO;
+            }
+        }
+    }
+    
+    }
+}
 
 - (void)shrinkAndMoveToPosition:(CGPoint)position {
     
     SKSpriteNode* superPower = [SKSpriteNode spriteNodeWithImageNamed:@"happyDog"];
     superPower.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:superPower];
-
+    
     
     SKAction *move = [SKAction moveTo:position duration:.5];
     SKAction *scale = [SKAction scaleTo:.3 duration:.5];
     SKAction *moveAndScale = [SKAction group:@[move, scale]];
     [self runAction:moveAndScale completion:^{
         
-
+        
         SKAction *animate = [SKAction scaleBy:0.0 duration:.5];
         
         [superPower runAction:[SKAction repeatActionForever:animate]];
@@ -610,10 +616,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     
     // Running player animation
     [self.duck addObject:[atlas textureNamed:@"ducktarget1"]];
-     [self.duck addObject:[atlas textureNamed:@"ducktarget2"]];
+    [self.duck addObject:[atlas textureNamed:@"ducktarget2"]];
 }
 //    NSArray * runTexture = @[runTexture1, runTexture2, runTexture3, runTexture4];
-//    
+//
 //    SKAction* runAnimation = [SKAction animateWithTextures:runTexture timePerFrame:0.06 resize:YES restore:NO];
 //    
 //    SKSpriteNode * playerNode = (SKSpriteNode *)[self childNodeWithName:@"player"];
