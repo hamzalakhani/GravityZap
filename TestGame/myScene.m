@@ -38,15 +38,20 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) NSMutableArray <SKTexture *> * dogLeftAnimation;
 @property (nonatomic) NSMutableArray <SKTexture*>* duckTargetAnimation;
 @property (nonatomic) NSMutableArray <SKTexture*>* duckExtraAnimation;
+@property (nonatomic) SKSpriteNode * secretDogNode;
+@property (nonatomic) bool isSecretLevelActivated;
 
 @end
 
 @implementation myScene
 
+#pragma mark - initialize scene
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         
         self.scoreValue = 0;
+        self.isSecretLevelActivated = NO;
         
         self.dogRightAnimation = [[NSMutableArray alloc] init];
         self.dogLeftAnimation = [[NSMutableArray alloc] init];
@@ -164,6 +169,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     return self;
 }
 
+#pragma mark - add duck node
+
 -(void)addDuckExtraNode {
     
     // Create sprite
@@ -238,6 +245,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
 }
 
+#pragma mark - time interval methods
+
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     
     self.lastForceSpawnTimeInterval += timeSinceLast;
@@ -294,6 +303,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
         int randomChip = arc4random_uniform(5) + 2;
         //add target
+        
         if (self.count > randomChip) {
             [self addDuckTargetNode];
             self.count = 0;
@@ -341,6 +351,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 //    float length = rwLength(a);
 //    return CGPointMake(a.x / length, a.y / length);
 //}
+
+#pragma mark - touch methods
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     // 1 - Choose one of the touches to work with
@@ -383,6 +396,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
     
 }
+
+#pragma mark - collision detection
 
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)monster {
     NSLog(@"Hit");
@@ -571,8 +586,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
             [self.view presentScene:scene];
         }
-        }
-        }
+    }
+}
+
 
 - (void)shrinkAndMoveToPosition:(CGPoint)position {
     
@@ -593,6 +609,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
     }];
 }
+
+#pragma mark - initialize animation texture
 
 -(void)initDogRightAnimation {
     
@@ -636,6 +654,46 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     // Running player animation
     [self.duckExtraAnimation addObject:[atlas textureNamed:@"duckExtra1"]];
     [self.duckExtraAnimation addObject:[atlas textureNamed:@"duckExtra2"]];
+    
+}
+
+#pragma mark - secret level
+
+-(void)addSecretDogNode {
+    
+    // Create sprite
+    
+    self.secretDogNode = [SKSpriteNode spriteNodeWithImageNamed:@"dogLeft1"];
+    self.secretDogNode.name = @"duckExtra";
+    self.secretDogNode.size = CGSizeMake(50, 50);
+    self.secretDogNode.physicsBody = [SKPhysicsBody bodyWithTexture:self.secretDogNode.texture size:self.secretDogNode.size]; // 1
+    self.secretDogNode.physicsBody.dynamic = YES; // 2
+    self.secretDogNode.physicsBody.categoryBitMask = targetCategory; // 3
+    self.secretDogNode.physicsBody.contactTestBitMask = projectileCategory; // 4
+    self.secretDogNode.physicsBody.collisionBitMask = 0; // 5
+    
+    // Determine where to spawn the monster along the Y axis
+    int maxY = self.frame.size.height - 20;
+    
+    // Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    self.secretDogNode.position = CGPointMake(self.frame.size.width + self.secretDogNode.size.width, maxY - 50);
+    [self addChild:self.secretDogNode];
+    
+    // Determine speed of the monster
+    int minDuration = 1.0;
+    int maxDuration = 4.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    // Create the actions
+    
+    SKAction * animateSecretDog = [SKAction animateWithTextures:self.dogLeftAnimation timePerFrame:0.5];
+    SKAction * animateSecretDogForever = [SKAction repeatAction:animateSecretDog count:3];
+    SKAction * secretDogMoveAction = [SKAction moveTo:CGPointMake(-self.secretDogNode.size.width/2, maxY) duration:minDuration];
+    SKAction *groupSecretDogAction = [SKAction group:@[animateSecretDogForever, secretDogMoveAction]];
+    SKAction * secretDogRemoveAction = [SKAction removeFromParent];
+    [self.secretDogNode runAction:[SKAction sequence:@[groupSecretDogAction, secretDogRemoveAction]]];
     
 }
 
