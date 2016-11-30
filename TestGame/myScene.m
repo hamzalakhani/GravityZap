@@ -10,6 +10,7 @@
 #import "RetryScene.h"
 #import "PausePlay.h"
 static const uint32_t projectileCategory     =  0x1 << 0;
+static const uint32_t blueChipCategory        =  0x1 << 1;
 static const uint32_t targetCategory        =  0x1 << 1;
 static const uint32_t powerUpCategory     =  0x1 << 1;
 
@@ -22,6 +23,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * rightAmp1;
 @property (nonatomic) SKSpriteNode * rightAmp2;
 @property (nonatomic) SKSpriteNode * target;
+@property (nonatomic) SKSpriteNode * blueChip;
 @property (nonatomic) NSTimeInterval lastForceSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastTargetSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
@@ -153,21 +155,24 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 -(void)addMonster {
     
     // Create sprite
-    SKSpriteNode * target = [SKSpriteNode spriteNodeWithImageNamed:@"ducktarget1"];
-    target.name = @"target";
-    target.size = CGSizeMake(80, 80);
-    target.physicsBody = [SKPhysicsBody bodyWithTexture:target.texture size:target.size]; // 1
-    target.physicsBody.dynamic = YES; // 2
-    target.physicsBody.categoryBitMask = targetCategory; // 3
-    target.physicsBody.contactTestBitMask = projectileCategory; // 4
-    target.physicsBody.collisionBitMask = 0; // 5
+
+    self.target = [SKSpriteNode spriteNodeWithImageNamed:@"ducktarget1"];
+    self.target.name = @"target";
+    self.target.size = CGSizeMake(80, 80);
+    self.target.texture = [SKTexture textureWithImageNamed:@"Target"];
+    self.target.physicsBody = [SKPhysicsBody bodyWithTexture:self.target.texture size:self.target.size]; // 1
+    self.target.physicsBody.dynamic = YES; // 2
+    self.target.physicsBody.categoryBitMask = targetCategory; // 3
+    self.target.physicsBody.contactTestBitMask = projectileCategory; // 4
+    self.target.physicsBody.collisionBitMask = 0; // 5
+
     // Determine where to spawn the monster along the Y axis
     int maxY = self.frame.size.height - 20;
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
-    target.position = CGPointMake(self.frame.size.width + target.size.width, maxY);
-    [self addChild:target];
+    self.target.position = CGPointMake(self.frame.size.width + self.target.size.width, maxY);
+    [self addChild:self.target];
     
     // Determine speed of the monster
     int minDuration = 2.0;
@@ -176,34 +181,33 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    SKAction *animatedAction= [SKAction animateWithTextures:self.duck timePerFrame:.2 ];
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:minDuration];
-    SKAction *groupActionMove = [SKAction group:@[animatedAction, actionMove]];
+
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-self.target.size.width/2, maxY) duration:minDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
-    
-    [target runAction:[SKAction sequence:@[groupActionMove, actionMoveDone]]];
+    [self.target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+
     
 }
 
 -(void)addBlueChip {
     
     // Create sprite
-    SKSpriteNode * target = [SKSpriteNode spriteNodeWithImageNamed:@"blueChip"];
-    target.name = @"blueChip";
-    target.size = CGSizeMake(80, 80);
-    target.texture = [SKTexture textureWithImageNamed:@"blueChip"];
-    target.physicsBody = [SKPhysicsBody bodyWithTexture:target.texture size:target.size]; // 1
-    target.physicsBody.dynamic = YES; // 2
-    target.physicsBody.categoryBitMask = targetCategory; // 3
-    target.physicsBody.contactTestBitMask = projectileCategory; // 4
-    target.physicsBody.collisionBitMask = 0; // 5
+    self.blueChip = [SKSpriteNode spriteNodeWithImageNamed:@"blueChip"];
+    self.blueChip.name = @"blueChip";
+    self.blueChip.size = CGSizeMake(80, 80);
+    self.blueChip.texture = [SKTexture textureWithImageNamed:@"blueChip"];
+    self.blueChip.physicsBody = [SKPhysicsBody bodyWithTexture:self.blueChip.texture size:self.blueChip.size]; // 1
+    self.blueChip.physicsBody.dynamic = YES; // 2
+    self.blueChip.physicsBody.categoryBitMask = blueChipCategory; // 3
+    self.blueChip.physicsBody.contactTestBitMask = projectileCategory; // 4
+    self.blueChip.physicsBody.collisionBitMask = 0; // 5
     // Determine where to spawn the monster along the Y axis
     int maxY = self.frame.size.height - 20;
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
-    target.position = CGPointMake(self.frame.size.width + target.size.width, maxY);
-    [self addChild:target];
+    self.blueChip.position = CGPointMake(self.frame.size.width + self.blueChip.size.width, maxY);
+    [self addChild:self.blueChip];
     
     // Determine speed of the monster
     int minDuration = 2.0;
@@ -212,9 +216,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:minDuration];
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-self.blueChip.size.width/2, maxY) duration:minDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
-    [target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+    [self.blueChip runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
 
 }
 
@@ -225,7 +229,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.lastForceSpawnTimeInterval = 0;
         
         //apply force to bullet
-        int randomXDirection = arc4random_uniform(400) + 2000;
+        int randomXDirection = arc4random_uniform(400) + 0;
         int randomNegative = arc4random_uniform(2) + 1;
         if (randomNegative == 1) {
             
@@ -360,6 +364,12 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)monster {
     NSLog(@"Hit");
     
+    if ([monster.name isEqual:@"blueChip"]) {
+        
+        self.count += 1;
+        
+    }
+    
     [self.bulletNode removeFromParent];
     [monster removeFromParent];
     self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
@@ -406,14 +416,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
             [self shrinkAndMoveToPosition:self.view.center];
             
             [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
-            
-        }else if ([secondBody.node.name isEqual:@"wall"]){
-            RetryScene* retryScene = [[RetryScene alloc] initWithSize:self.frame.size playerWon:NO];
-            [self.view presentScene:retryScene];
 
-        }else {
-            
-            self.scoreValue += 1;
+        }else if ([secondBody.node.name isEqual:@"blueChip"]){
             
             switch (self.scoreValue) {
                 case 1:
@@ -519,6 +523,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
             }
             
             
+        } else {
+            
+            RetryScene* retryScene = [[RetryScene alloc] initWithSize:self.frame.size playerWon:NO];
+            [self.view presentScene:retryScene];
         }
         
     }
@@ -557,6 +565,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
     }];
 }
+
 -(void) setUpTargetActions {
     SKTextureAtlas * atlas = [SKTextureAtlas atlasNamed:@"Duck"];
     
@@ -571,6 +580,5 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 //    SKSpriteNode * playerNode = (SKSpriteNode *)[self childNodeWithName:@"player"];
 //    [playerNode runAction:[SKAction repeatActionForever:runAnimation]];
 //}
-
 
 @end
