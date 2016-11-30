@@ -21,7 +21,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * rightAmp1;
 @property (nonatomic) SKSpriteNode * rightAmp2;
 @property (nonatomic) SKSpriteNode * target;
-@property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
+@property (nonatomic) NSTimeInterval lastForceSpawnTimeInterval;
+@property (nonatomic) NSTimeInterval lastTargetSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) SKSpriteNode * powerUp;
 @property (nonatomic) SKSpriteNode * scoreBoard;
@@ -36,8 +37,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     if (self = [super initWithSize:size]) {
         
         self.scoreValue = 0;
-        
-        
+
         // 1 Create a physics body that borders the screen
         SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         // 2 Set physicsBody of scene to borderBody
@@ -45,10 +45,6 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         borderBody.node.name = @"wall";
         // 3 Set the friction of that physicsBody to 0
         self.physicsBody.friction = 0.0f;
-        
-        
-        
-        
         
         // 2
         NSLog(@"Size: %@", NSStringFromCGSize(size));
@@ -78,11 +74,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         // 5
         self.powerUp.physicsBody.linearDamping = 0.0f;
         // 6
-        self.powerUp.physicsBody.allowsRotation = NO;
+        self.powerUp.physicsBody.allowsRotation = YES;
         [self.powerUp.physicsBody applyImpulse:CGVectorMake(10.0f, -10.0f)];
-        
-        
-        
         
         // 4
         self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
@@ -189,11 +182,11 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     
-    self.lastSpawnTimeInterval += timeSinceLast;
-    if (self.lastSpawnTimeInterval > 2) {
-        self.lastSpawnTimeInterval = 0;
+    self.lastForceSpawnTimeInterval += timeSinceLast;
+    if (self.lastForceSpawnTimeInterval > 2) {
+        self.lastForceSpawnTimeInterval = 0;
         //apply force to bullet
-        int randomXDirection = arc4random_uniform(20) + 100;
+        int randomXDirection = arc4random_uniform(400) + 200;
         int randomNegative = arc4random_uniform(2) + 1;
         if (randomNegative == 1) {
             randomXDirection = randomXDirection * - 1;
@@ -211,13 +204,13 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
 -(void)updateTargetWithTime:(CFTimeInterval)timeSinceLast {
     
-    self.lastSpawnTimeInterval += timeSinceLast;
+    self.lastTargetSpawnTimeInterval += timeSinceLast;
     
     srand48(time(0));
     double randomTime = drand48() + 1;
     
-    if (self.lastSpawnTimeInterval > randomTime) {
-        self.lastSpawnTimeInterval = 0;
+    if (self.lastTargetSpawnTimeInterval > randomTime) {
+        self.lastTargetSpawnTimeInterval = 0;
        
         int randomChip = arc4random_uniform(5) + 2;
         //add target
@@ -327,9 +320,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     NSLog(@"power up!!");
     [self.powerUp removeFromParent];
     [powerUp removeFromParent];
-    self.superBullet = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
-    self.superBullet.position = CGPointMake(200, 30);
-    [self addChild:self.superBullet];
+    self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
+    self.bulletNode.position = CGPointMake(200, 30);
+    [self addChild:self.bulletNode];
     
 }
 
