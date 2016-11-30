@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BC0C7E01DEF5E46006AEE1B /* dogRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C7DF1DEF5E46006AEE1B /* dogRight.atlas */; };
+		2BC0C7E41DEF6AEF006AEE1B /* dogLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C7E31DEF6AEF006AEE1B /* dogLeft.atlas */; };
 		CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793441DEDEBB7003B6620 /* RetryScene.m */; };
 		CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793471DEDF7FB003B6620 /* StartScene.m */; };
 		CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793491DEE096B003B6620 /* StartScene.sks */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2BC0C7DF1DEF5E46006AEE1B /* dogRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogRight.atlas; sourceTree = "<group>"; };
+		2BC0C7E31DEF6AEF006AEE1B /* dogLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogLeft.atlas; sourceTree = "<group>"; };
 		CA8793431DEDEBB7003B6620 /* RetryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryScene.h; sourceTree = "<group>"; };
 		CA8793441DEDEBB7003B6620 /* RetryScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryScene.m; sourceTree = "<group>"; };
 		CA8793461DEDF7FB003B6620 /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScene.h; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 		CABC60731DEA5F0C00CC1AEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2BC0C7DF1DEF5E46006AEE1B /* dogRight.atlas */,
+				2BC0C7E31DEF6AEF006AEE1B /* dogLeft.atlas */,
 				CABC60741DEA5F0C00CC1AEE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -172,7 +178,9 @@
 				CABC60851DEA5F0C00CC1AEE /* Main.storyboard in Resources */,
 				CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */,
 				CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */,
+				2BC0C7E41DEF6AEF006AEE1B /* dogLeft.atlas in Resources */,
 				CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */,
+				2BC0C7E01DEF5E46006AEE1B /* dogRight.atlas in Resources */,
 				CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,6 +33,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) int count;
 @property (nonatomic) SKSpriteNode * dogRight;
 @property (nonatomic) SKSpriteNode * dogLeft;
+@property (nonatomic) NSMutableArray <SKTexture *> * dogRightAnimation;
+@property (nonatomic) NSMutableArray <SKTexture *> * dogLeftAnimation;
 
 @end
 
@@ -42,7 +44,13 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     if (self = [super initWithSize:size]) {
         
         self.scoreValue = 0;
-
+        
+        self.dogRightAnimation = [[NSMutableArray alloc] init];
+        self.dogLeftAnimation = [[NSMutableArray alloc] init];
+        
+        [self initDogRightAnimation];
+        [self initDogLeftAnimation];
+        
         // 1 Create a physics body that borders the screen
         SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         // 2 Set physicsBody of scene to borderBody
@@ -116,7 +124,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self addChild:self.scoreBoard];
         
         //Add dogLeft
-        self.dogLeft = [SKSpriteNode spriteNodeWithImageNamed:@"dogLeft"];
+        self.dogLeft = [SKSpriteNode spriteNodeWithImageNamed:@"dogLeft1"];
         self.dogLeft.size = CGSizeMake(50, 50);
         self.dogLeft.position = CGPointMake(self.frame.size.width + 50, self.frame.size.height/2);
         self.dogLeft.name = @"dogLeft";
@@ -129,7 +137,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self addChild:self.dogLeft];
         
         //Add dogRight
-        self.dogRight = [SKSpriteNode spriteNodeWithImageNamed:@"dogRight"];
+        self.dogRight = [SKSpriteNode spriteNodeWithImageNamed:@"dogRight1"];
         self.dogRight.size = CGSizeMake(50, 50);
         self.dogRight.position = CGPointMake(-50 , self.frame.size.height/2);
         self.dogRight.name = @"dogRight";
@@ -225,15 +233,22 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
             
             randomXDirection = randomXDirection * - 1;
             //Make dog appear from right
+            SKAction * animateDogLeft = [SKAction animateWithTextures:self.dogLeftAnimation timePerFrame:0.1];
             SKAction * dogMoveLeft = [SKAction moveTo:CGPointMake(self.frame.size.width - 10, self.frame.size.height/2) duration:0.8];
+            SKAction *groupDogLeft = [SKAction group:@[animateDogLeft, dogMoveLeft]];
             SKAction *dogMoveLeftBack = [SKAction moveTo:CGPointMake(self.frame.size.width + 50, self.frame.size.height/2) duration:0.8];
-            [self.dogLeft runAction:[SKAction sequence:@[dogMoveLeft, dogMoveLeftBack]]];
+            SKAction *groupDogLeftBack = [SKAction group:@[animateDogLeft, dogMoveLeftBack]];
+            [self.dogLeft runAction:[SKAction sequence:@[groupDogLeft, groupDogLeftBack]]];
+            
         } else {
             
             //Make dog appear from left
+            SKAction * animateDogRight = [SKAction animateWithTextures:self.dogRightAnimation timePerFrame:0.1];
             SKAction * dogMoveRight = [SKAction moveTo:CGPointMake(10, self.frame.size.height/2) duration:0.8];
+            SKAction *groupDogRight = [SKAction group:@[animateDogRight, dogMoveRight]];
             SKAction *dogMoveRightBack = [SKAction moveTo:CGPointMake(-50, self.frame.size.height/2) duration:0.8];
-            [self.dogRight runAction:[SKAction sequence:@[dogMoveRight, dogMoveRightBack]]];
+            SKAction *groupDogRightBack = [SKAction group:@[animateDogRight, dogMoveRightBack]];
+            [self.dogRight runAction:[SKAction sequence:@[groupDogRight, groupDogRightBack]]];
             
         }
         
@@ -556,6 +571,30 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [superPower runAction:[SKAction repeatActionForever:animate]];
         
     }];
+}
+
+-(void)initDogRightAnimation {
+    
+    SKTextureAtlas *dogAtlas = [SKTextureAtlas atlasNamed:@"dogRight"];
+    
+    [self.dogRightAnimation addObject:[dogAtlas textureNamed:@"dogRight1"]];
+    [self.dogRightAnimation addObject:[dogAtlas textureNamed:@"dogRight2"]];
+    [self.dogRightAnimation addObject:[dogAtlas textureNamed:@"dogRight3"]];
+    [self.dogRightAnimation addObject:[dogAtlas textureNamed:@"dogRight4"]];
+    [self.dogRightAnimation addObject:[dogAtlas textureNamed:@"dogRight5"]];
+    
+}
+
+-(void)initDogLeftAnimation {
+    
+    SKTextureAtlas *dogAtlas = [SKTextureAtlas atlasNamed:@"dogLeft"];
+    
+    [self.dogLeftAnimation addObject:[dogAtlas textureNamed:@"dogLeft1"]];
+    [self.dogLeftAnimation addObject:[dogAtlas textureNamed:@"dogLeft2"]];
+    [self.dogLeftAnimation addObject:[dogAtlas textureNamed:@"dogLeft3"]];
+    [self.dogLeftAnimation addObject:[dogAtlas textureNamed:@"dogLeft4"]];
+    [self.dogLeftAnimation addObject:[dogAtlas textureNamed:@"dogLeft5"]];
+    
 }
 
 @end
