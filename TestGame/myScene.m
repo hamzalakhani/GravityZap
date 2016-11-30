@@ -8,6 +8,7 @@
 
 #import "myScene.h"
 #import "RetryScene.h"
+#import "PausePlay.h"
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t blueChipCategory        =  0x1 << 1;
 static const uint32_t targetCategory        =  0x1 << 1;
@@ -35,6 +36,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * dogLeft;
 @property (nonatomic) NSMutableArray <SKTexture *> * dogRightAnimation;
 @property (nonatomic) NSMutableArray <SKTexture *> * dogLeftAnimation;
+@property (nonatomic) NSMutableArray <SKTexture*>* duck;
+@property (nonatomic) NSMutableArray <SKTexture*>* duckPower;
 
 @end
 
@@ -50,6 +53,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
         [self initDogRightAnimation];
         [self initDogLeftAnimation];
+
+        self.scoreValue = 0;
+        
+        self.duck = [[NSMutableArray alloc]init];
         
         // 1 Create a physics body that borders the screen
         SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
@@ -157,7 +164,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 -(void)addMonster {
     
     // Create sprite
-    self.target = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
+
+    self.target = [SKSpriteNode spriteNodeWithImageNamed:@"ducktarget1"];
     self.target.name = @"target";
     self.target.size = CGSizeMake(80, 80);
     self.target.texture = [SKTexture textureWithImageNamed:@"Target"];
@@ -166,6 +174,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     self.target.physicsBody.categoryBitMask = targetCategory; // 3
     self.target.physicsBody.contactTestBitMask = projectileCategory; // 4
     self.target.physicsBody.collisionBitMask = 0; // 5
+
     // Determine where to spawn the monster along the Y axis
     int maxY = self.frame.size.height - 20;
     
@@ -181,9 +190,11 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
+
     SKAction * actionMove = [SKAction moveTo:CGPointMake(-self.target.size.width/2, maxY) duration:minDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [self.target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+
     
 }
 
@@ -537,25 +548,23 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     }
     
 }
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches){
-        self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pause"];
-        self.pauseButton.size = CGSizeMake(50, 50);
-        self.pauseButton.position = CGPointMake( 20, self.frame.size.height - 25);
-        [self addChild:self.pauseButton];
-        CGPoint location = [touch locationInNode:self];
-        if([self.pauseButton containsPoint:location]){
-            self.scene.view.paused = YES;
-
-        }
-    }
-
-
-}
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    for (UITouch *touch in touches){
+//       If( PausePlay* pauseScene = [[PausePlay alloc]initWithSize:self.frame.size isOn:YES]);
+//        [self.view presentScene:retryScene];
+//        CGPoint location = [touch locationInNode:self];
+//        if([self.pauseButton containsPoint:location]){
+//            self.scene.view.paused = YES;
+//
+//        }
+//    }
+//
+//
+//}
 
 - (void)shrinkAndMoveToPosition:(CGPoint)position {
     
-    SKSpriteNode* superPower = [SKSpriteNode spriteNodeWithImageNamed:@"superPower"];
+    SKSpriteNode* superPower = [SKSpriteNode spriteNodeWithImageNamed:@"happyDog"];
     superPower.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:superPower];
 
@@ -596,5 +605,20 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     [self.dogLeftAnimation addObject:[dogAtlas textureNamed:@"dogLeft5"]];
     
 }
+-(void) setUpTargetActions {
+    SKTextureAtlas * atlas = [SKTextureAtlas atlasNamed:@"Duck"];
+    
+    // Running player animation
+    [self.duck addObject:[atlas textureNamed:@"ducktarget1"]];
+     [self.duck addObject:[atlas textureNamed:@"ducktarget2"]];
+}
+//    NSArray * runTexture = @[runTexture1, runTexture2, runTexture3, runTexture4];
+//    
+//    SKAction* runAnimation = [SKAction animateWithTextures:runTexture timePerFrame:0.06 resize:YES restore:NO];
+//    
+//    SKSpriteNode * playerNode = (SKSpriteNode *)[self childNodeWithName:@"player"];
+//    [playerNode runAction:[SKAction repeatActionForever:runAnimation]];
+//}
+
 
 @end

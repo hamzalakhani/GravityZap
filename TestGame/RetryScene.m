@@ -31,8 +31,8 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    myScene* breakoutGameScene = [[myScene alloc] initWithSize:self.size];
+    myScene* retryScene = [[myScene alloc] initWithSize:self.size];
     // 2
-    [self.view presentScene:breakoutGameScene];
+    [self.view presentScene:retryScene];
 }
 @end

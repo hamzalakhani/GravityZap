@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PausePlay : UIButton
+-(id)initWithSize:(CGSize)size isOn:(BOOL)isOn;
 
 @end
