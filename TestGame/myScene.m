@@ -540,8 +540,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
             
         } else {
             
-            RetryScene* retryScene = [[RetryScene alloc] initWithSize:self.frame.size playerWon:NO];
-            [self.view presentScene:retryScene];
+            RetryScene *scene = (RetryScene *)[SKScene nodeWithFileNamed:@"RetryScene"];
+            
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            [self.view presentScene:scene];
         }
         
     }
@@ -556,17 +558,13 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self addChild:self.pauseButton];
         CGPoint location = [touch locationInNode:self];
         if([self.pauseButton containsPoint:location]){
-            self.scene.view.paused = YES;
-        }else(){
+            RetryScene *scene = (RetryScene *)[SKScene nodeWithFileNamed:@"RetryScene"];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
 
-
-                self.scene.view.paused = NO;
-            }
+            [self.view presentScene:scene];
         }
-    }
-    
-    }
-}
+        }
+        }
 
 - (void)shrinkAndMoveToPosition:(CGPoint)position {
     

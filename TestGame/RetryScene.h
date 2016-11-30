@@ -9,5 +9,5 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface RetryScene : SKScene
--(id)initWithSize:(CGSize)size playerWon:(BOOL)isWon;
+//-(id)initWithSize:(CGSize)size playerWon:(BOOL)isWon;
 @end
