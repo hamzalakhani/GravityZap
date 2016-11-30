@@ -10,6 +10,7 @@
 		CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793441DEDEBB7003B6620 /* RetryScene.m */; };
 		CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793471DEDF7FB003B6620 /* StartScene.m */; };
 		CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793491DEE096B003B6620 /* StartScene.sks */; };
+		CA87934D1DEF3716003B6620 /* PausePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CA87934C1DEF3716003B6620 /* PausePlay.m */; };
 		CABC60751DEA5F0C00CC1AEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60741DEA5F0C00CC1AEE /* main.m */; };
 		CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */; };
 		CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC607B1DEA5F0C00CC1AEE /* Actions.sks */; };
@@ -27,6 +28,8 @@
 		CA8793461DEDF7FB003B6620 /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScene.h; sourceTree = "<group>"; };
 		CA8793471DEDF7FB003B6620 /* StartScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartScene.m; sourceTree = "<group>"; };
 		CA8793491DEE096B003B6620 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
+		CA87934B1DEF3716003B6620 /* PausePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PausePlay.h; sourceTree = "<group>"; };
+		CA87934C1DEF3716003B6620 /* PausePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PausePlay.m; sourceTree = "<group>"; };
 		CABC60701DEA5F0C00CC1AEE /* TestGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABC60741DEA5F0C00CC1AEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 				CA8793441DEDEBB7003B6620 /* RetryScene.m */,
 				CA8793461DEDF7FB003B6620 /* StartScene.h */,
 				CA8793471DEDF7FB003B6620 /* StartScene.m */,
+				CA87934B1DEF3716003B6620 /* PausePlay.h */,
+				CA87934C1DEF3716003B6620 /* PausePlay.m */,
 				CA8793491DEE096B003B6620 /* StartScene.sks */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
@@ -181,6 +186,7 @@
 			files = (
 				CABC60821DEA5F0C00CC1AEE /* GameViewController.m in Sources */,
 				CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */,
+				CA87934D1DEF3716003B6620 /* PausePlay.m in Sources */,
 				CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */,
 				CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */,
 				CABC60751DEA5F0C00CC1AEE /* main.m in Sources */,
