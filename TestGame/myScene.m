@@ -114,14 +114,28 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
         //Add dogLeft
         self.dogLeft = [SKSpriteNode spriteNodeWithImageNamed:@"dogLeft"];
+        self.dogLeft.size = CGSizeMake(50, 50);
         self.dogLeft.position = CGPointMake(self.frame.size.width + 50, self.frame.size.height/2);
         self.dogLeft.name = @"dogLeft";
+        self.dogLeft.texture = [SKTexture textureWithImageNamed:@"dogLeft"];
+        self.dogLeft.physicsBody = [SKPhysicsBody bodyWithTexture:self.dogLeft.texture size:self.dogLeft.size]; // 1
+        self.dogLeft.physicsBody.dynamic = YES; // 2
+        self.dogLeft.physicsBody.categoryBitMask = targetCategory; // 3
+        self.dogLeft.physicsBody.contactTestBitMask = projectileCategory; // 4
+        self.dogLeft.physicsBody.collisionBitMask = 0; // 5
         [self addChild:self.dogLeft];
         
         //Add dogRight
         self.dogRight = [SKSpriteNode spriteNodeWithImageNamed:@"dogRight"];
+        self.dogRight.size = CGSizeMake(50, 50);
         self.dogRight.position = CGPointMake(-50 , self.frame.size.height/2);
         self.dogRight.name = @"dogRight";
+        self.dogRight.texture = [SKTexture textureWithImageNamed:@"dogRight"];
+        self.dogRight.physicsBody = [SKPhysicsBody bodyWithTexture:self.dogRight.texture size:self.dogRight.size]; // 1
+        self.dogRight.physicsBody.dynamic = YES; // 2
+        self.dogRight.physicsBody.categoryBitMask = targetCategory; // 3
+        self.dogRight.physicsBody.contactTestBitMask = projectileCategory; // 4
+        self.dogRight.physicsBody.collisionBitMask = 0; // 5
         [self addChild:self.dogRight];
         
     }
@@ -205,6 +219,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         int randomXDirection = arc4random_uniform(400) + 200;
         int randomNegative = arc4random_uniform(2) + 1;
         if (randomNegative == 1) {
+            
             randomXDirection = randomXDirection * - 1;
             //Make dog appear from right
             SKAction * dogMoveLeft = [SKAction moveTo:CGPointMake(self.frame.size.width - 10, self.frame.size.height/2) duration:0.8];
