@@ -26,6 +26,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * powerUp;
 @property (nonatomic) SKSpriteNode * scoreBoard;
 @property (nonatomic) int scoreValue;
+@property (nonatomic) SKSpriteNode * pauseButton;
 
 @end
 
@@ -242,7 +243,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     //float velocity = 480.0/1.0;
     //float realMoveDuration = self.size.width / velocity;
     SKAction * actionMove = [SKAction runBlock:^{
-        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 500)];
+        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 2500)];
     }];
     [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
     
@@ -300,6 +301,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         }else if ([secondBody.node.name isEqual:@"wall"]){
             RetryScene* retryScene = [[RetryScene alloc] initWithSize:self.frame.size playerWon:NO];
             [self.view presentScene:retryScene];
+
         }else {
             
             self.scoreValue += 1;
@@ -412,6 +414,21 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
     }
     
+}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches){
+        self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pause"];
+        self.pauseButton.size = CGSizeMake(50, 50);
+        self.pauseButton.position = CGPointMake( 20, self.frame.size.height - 25);
+        [self addChild:self.pauseButton];
+        CGPoint location = [touch locationInNode:self];
+        if([self.pauseButton containsPoint:location]){
+            self.scene.view.paused = YES;
+
+        }
+    }
+
+
 }
 
 @end
