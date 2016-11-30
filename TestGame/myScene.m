@@ -22,8 +22,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * leftAmp2;
 @property (nonatomic) SKSpriteNode * rightAmp1;
 @property (nonatomic) SKSpriteNode * rightAmp2;
-@property (nonatomic) SKSpriteNode * target;
-@property (nonatomic) SKSpriteNode * blueChip;
+@property (nonatomic) SKSpriteNode * duckExtraNode;
+@property (nonatomic) SKSpriteNode * duckTargetNode;
 @property (nonatomic) NSTimeInterval lastForceSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastTargetSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
@@ -36,8 +36,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * dogLeft;
 @property (nonatomic) NSMutableArray <SKTexture *> * dogRightAnimation;
 @property (nonatomic) NSMutableArray <SKTexture *> * dogLeftAnimation;
-@property (nonatomic) NSMutableArray <SKTexture*>* duck;
-@property (nonatomic) NSMutableArray <SKTexture*>* duckPower;
+@property (nonatomic) NSMutableArray <SKTexture*>* duckTargetAnimation;
+@property (nonatomic) NSMutableArray <SKTexture*>* duckExtraAnimation;
 
 @end
 
@@ -50,12 +50,15 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
         self.dogRightAnimation = [[NSMutableArray alloc] init];
         self.dogLeftAnimation = [[NSMutableArray alloc] init];
+        self.duckTargetAnimation = [[NSMutableArray alloc]init];
+        self.duckExtraAnimation = [[NSMutableArray alloc] init];
         
         [self initDogRightAnimation];
         [self initDogLeftAnimation];
-        
-        
-        self.duck = [[NSMutableArray alloc]init];
+        [self initDuckTarget];
+        [self initDuckExtra];
+
+        self.scoreValue = 0;
         
         // 1 Create a physics body that borders the screen
         SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
@@ -160,74 +163,79 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     
     return self;
 }
--(void)addMonster {
+
+-(void)addDuckExtraNode {
     
     // Create sprite
-    
-    self.target = [SKSpriteNode spriteNodeWithImageNamed:@"ducktarget1"];
-    self.target.name = @"target";
-    self.target.size = CGSizeMake(80, 80);
-    self.target.texture = [SKTexture textureWithImageNamed:@"Target"];
-    self.target.physicsBody = [SKPhysicsBody bodyWithTexture:self.target.texture size:self.target.size]; // 1
-    self.target.physicsBody.dynamic = YES; // 2
-    self.target.physicsBody.categoryBitMask = targetCategory; // 3
-    self.target.physicsBody.contactTestBitMask = projectileCategory; // 4
-    self.target.physicsBody.collisionBitMask = 0; // 5
-    
+
+    self.duckExtraNode = [SKSpriteNode spriteNodeWithImageNamed:@"duckExtra1"];
+    self.duckExtraNode.name = @"duckExtra";
+    self.duckExtraNode.size = CGSizeMake(50, 50);
+    self.duckExtraNode.physicsBody = [SKPhysicsBody bodyWithTexture:self.duckExtraNode.texture size:self.duckExtraNode.size]; // 1
+    self.duckExtraNode.physicsBody.dynamic = YES; // 2
+    self.duckExtraNode.physicsBody.categoryBitMask = targetCategory; // 3
+    self.duckExtraNode.physicsBody.contactTestBitMask = projectileCategory; // 4
+    self.duckExtraNode.physicsBody.collisionBitMask = 0; // 5
+
     // Determine where to spawn the monster along the Y axis
     int maxY = self.frame.size.height - 20;
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
-    self.target.position = CGPointMake(self.frame.size.width + self.target.size.width, maxY);
-    [self addChild:self.target];
+    self.duckExtraNode.position = CGPointMake(self.frame.size.width + self.duckExtraNode.size.width, maxY - 50);
+    [self addChild:self.duckExtraNode];
     
     // Determine speed of the monster
-    int minDuration = 2.0;
+    int minDuration = 1.0;
     int maxDuration = 4.0;
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
     
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-self.target.size.width/2, maxY) duration:minDuration];
-    SKAction * actionMoveDone = [SKAction removeFromParent];
-    [self.target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-    
-    
+    SKAction * animateDuckExtra = [SKAction animateWithTextures:self.duckExtraAnimation timePerFrame:0.5];
+    SKAction * animateDuckExtraForever = [SKAction repeatAction:animateDuckExtra count:3];
+    SKAction * duckExtraMoveAction = [SKAction moveTo:CGPointMake(-self.duckExtraNode.size.width/2, maxY) duration:minDuration];
+    SKAction *groupDuckExtraAction = [SKAction group:@[animateDuckExtraForever, duckExtraMoveAction]];
+    SKAction * duckExtraRemoveAction = [SKAction removeFromParent];
+    [self.duckExtraNode runAction:[SKAction sequence:@[groupDuckExtraAction, duckExtraRemoveAction]]];
+
 }
 
--(void)addBlueChip {
+-(void)addDuckTargetNode {
     
     // Create sprite
-    self.blueChip = [SKSpriteNode spriteNodeWithImageNamed:@"blueChip"];
-    self.blueChip.name = @"blueChip";
-    self.blueChip.size = CGSizeMake(80, 80);
-    self.blueChip.texture = [SKTexture textureWithImageNamed:@"blueChip"];
-    self.blueChip.physicsBody = [SKPhysicsBody bodyWithTexture:self.blueChip.texture size:self.blueChip.size]; // 1
-    self.blueChip.physicsBody.dynamic = YES; // 2
-    self.blueChip.physicsBody.categoryBitMask = blueChipCategory; // 3
-    self.blueChip.physicsBody.contactTestBitMask = projectileCategory; // 4
-    self.blueChip.physicsBody.collisionBitMask = 0; // 5
+    self.duckTargetNode = [SKSpriteNode spriteNodeWithImageNamed:@"duckTarget1"];
+    self.duckTargetNode.name = @"duckTarget";
+    self.duckTargetNode.size = CGSizeMake(50, 50);
+    self.duckTargetNode.physicsBody = [SKPhysicsBody bodyWithTexture:self.duckTargetNode.texture size:self.duckTargetNode.size]; // 1
+    self.duckTargetNode.physicsBody.dynamic = YES; // 2
+    self.duckTargetNode.physicsBody.categoryBitMask = blueChipCategory; // 3
+    self.duckTargetNode.physicsBody.contactTestBitMask = projectileCategory; // 4
+    self.duckTargetNode.physicsBody.collisionBitMask = 0; // 5
     // Determine where to spawn the monster along the Y axis
     int maxY = self.frame.size.height - 20;
     
     // Create the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
-    self.blueChip.position = CGPointMake(self.frame.size.width + self.blueChip.size.width, maxY);
-    [self addChild:self.blueChip];
+    self.duckTargetNode.position = CGPointMake(self.frame.size.width + self.duckTargetNode.size.width, maxY - 50);
+    [self addChild:self.duckTargetNode];
     
     // Determine speed of the monster
-    int minDuration = 2.0;
+    int minDuration = 1.0;
     int maxDuration = 4.0;
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-self.blueChip.size.width/2, maxY) duration:minDuration];
-    SKAction * actionMoveDone = [SKAction removeFromParent];
-    [self.blueChip runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     
+    SKAction * animateDuckTarget = [SKAction animateWithTextures:self.duckTargetAnimation timePerFrame:0.5];
+    SKAction * animateDuckTargetForever = [SKAction repeatAction:animateDuckTarget count:3];
+    SKAction * duckTargetMoveAction = [SKAction moveTo:CGPointMake(-self.duckTargetNode.size.width/2, maxY) duration:minDuration];
+    SKAction *groupDuckTargetAction = [SKAction group:@[animateDuckTargetForever, duckTargetMoveAction]];
+    SKAction * duckTargetRemoveAction = [SKAction removeFromParent];
+    [self.duckTargetNode runAction:[SKAction sequence:@[groupDuckTargetAction, duckTargetRemoveAction]]];
+
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
@@ -287,10 +295,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         int randomChip = arc4random_uniform(5) + 2;
         //add target
         if (self.count > randomChip) {
-            [self addBlueChip];
+            [self addDuckTargetNode];
             self.count = 0;
         } else {
-            [self addMonster];
+            [self addDuckExtraNode];
             self.count += 1;
         }
         
@@ -431,8 +439,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
             [self shrinkAndMoveToPosition:self.view.center];
             
             [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
-            
-        }else if ([secondBody.node.name isEqual:@"blueChip"]){
+
+        }else if ([secondBody.node.name isEqual:@"duckTarget"]){
             
             switch (self.scoreValue) {
                 case 1:
@@ -609,20 +617,26 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     [self.dogLeftAnimation addObject:[dogAtlas textureNamed:@"dogLeft5"]];
     
 }
--(void) setUpTargetActions {
-    SKTextureAtlas * atlas = [SKTextureAtlas atlasNamed:@"Duck"];
+-(void) initDuckTarget {
+    
+    SKTextureAtlas * atlas = [SKTextureAtlas atlasNamed:@"duckTarget"];
     
     // Running player animation
-    [self.duck addObject:[atlas textureNamed:@"ducktarget1"]];
-    [self.duck addObject:[atlas textureNamed:@"ducktarget2"]];
+    
+    [self.duckTargetAnimation addObject:[atlas textureNamed:@"duckTarget1"]];
+    [self.duckTargetAnimation addObject:[atlas textureNamed:@"duckTarget2"]];
+    
 }
-//    NSArray * runTexture = @[runTexture1, runTexture2, runTexture3, runTexture4];
-//
-//    SKAction* runAnimation = [SKAction animateWithTextures:runTexture timePerFrame:0.06 resize:YES restore:NO];
-//    
-//    SKSpriteNode * playerNode = (SKSpriteNode *)[self childNodeWithName:@"player"];
-//    [playerNode runAction:[SKAction repeatActionForever:runAnimation]];
-//}
 
+
+-(void) initDuckExtra {
+    
+    SKTextureAtlas * atlas = [SKTextureAtlas atlasNamed:@"duckExtra"];
+    
+    // Running player animation
+    [self.duckExtraAnimation addObject:[atlas textureNamed:@"duckExtra1"]];
+    [self.duckExtraAnimation addObject:[atlas textureNamed:@"duckExtra2"]];
+    
+}
 
 @end
