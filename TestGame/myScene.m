@@ -21,12 +21,14 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * rightAmp1;
 @property (nonatomic) SKSpriteNode * rightAmp2;
 @property (nonatomic) SKSpriteNode * target;
-@property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
+@property (nonatomic) NSTimeInterval lastForceSpawnTimeInterval;
+@property (nonatomic) NSTimeInterval lastTargetSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) SKSpriteNode * powerUp;
 @property (nonatomic) SKSpriteNode * scoreBoard;
 @property (nonatomic) int scoreValue;
 @property (nonatomic) SKSpriteNode * pauseButton;
+@property (nonatomic) int count;
 
 @end
 
@@ -36,8 +38,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     if (self = [super initWithSize:size]) {
         
         self.scoreValue = 0;
-        
-        
+
         // 1 Create a physics body that borders the screen
         SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         // 2 Set physicsBody of scene to borderBody
@@ -45,10 +46,6 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         borderBody.node.name = @"wall";
         // 3 Set the friction of that physicsBody to 0
         self.physicsBody.friction = 0.0f;
-        
-        
-        
-        
         
         // 2
         NSLog(@"Size: %@", NSStringFromCGSize(size));
@@ -78,11 +75,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         // 5
         self.powerUp.physicsBody.linearDamping = 0.0f;
         // 6
-        self.powerUp.physicsBody.allowsRotation = NO;
+        self.powerUp.physicsBody.allowsRotation = YES;
         [self.powerUp.physicsBody applyImpulse:CGVectorMake(10.0f, -10.0f)];
-        
-        
-        
         
         // 4
         self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"bullet"];
@@ -126,7 +120,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     // Create sprite
     SKSpriteNode * target = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
     target.name = @"target";
-    target.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:target.size]; // 1
+    target.size = CGSizeMake(80, 80);
+    target.texture = [SKTexture textureWithImageNamed:@"Target"];
+    target.physicsBody = [SKPhysicsBody bodyWithTexture:target.texture size:target.size]; // 1
     target.physicsBody.dynamic = YES; // 2
     target.physicsBody.categoryBitMask = targetCategory; // 3
     target.physicsBody.contactTestBitMask = projectileCategory; // 4
@@ -146,19 +142,52 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:actualDuration];
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:minDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     
 }
 
+-(void)addBlueChip {
+    
+    // Create sprite
+    SKSpriteNode * target = [SKSpriteNode spriteNodeWithImageNamed:@"blueChip"];
+    target.name = @"blueChip";
+    target.size = CGSizeMake(80, 80);
+    target.texture = [SKTexture textureWithImageNamed:@"blueChip"];
+    target.physicsBody = [SKPhysicsBody bodyWithTexture:target.texture size:target.size]; // 1
+    target.physicsBody.dynamic = YES; // 2
+    target.physicsBody.categoryBitMask = targetCategory; // 3
+    target.physicsBody.contactTestBitMask = projectileCategory; // 4
+    target.physicsBody.collisionBitMask = 0; // 5
+    // Determine where to spawn the monster along the Y axis
+    int maxY = self.frame.size.height - 20;
+    
+    // Create the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    target.position = CGPointMake(self.frame.size.width + target.size.width, maxY);
+    [self addChild:target];
+    
+    // Determine speed of the monster
+    int minDuration = 2.0;
+    int maxDuration = 4.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    // Create the actions
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(-target.size.width/2, maxY) duration:minDuration];
+    SKAction * actionMoveDone = [SKAction removeFromParent];
+    [target runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+
+}
+
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     
-    self.lastSpawnTimeInterval += timeSinceLast;
-    if (self.lastSpawnTimeInterval > 2) {
-        self.lastSpawnTimeInterval = 0;
+    self.lastForceSpawnTimeInterval += timeSinceLast;
+    if (self.lastForceSpawnTimeInterval > 2) {
+        self.lastForceSpawnTimeInterval = 0;
         //apply force to bullet
-        int randomXDirection = arc4random_uniform(20) + 100;
+        int randomXDirection = arc4random_uniform(400) + 200;
         int randomNegative = arc4random_uniform(2) + 1;
         if (randomNegative == 1) {
             randomXDirection = randomXDirection * - 1;
@@ -169,9 +198,35 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
         
         //add target
-        [self addMonster];
+        
     }
+    
 }
+
+-(void)updateTargetWithTime:(CFTimeInterval)timeSinceLast {
+    
+    self.lastTargetSpawnTimeInterval += timeSinceLast;
+    
+    srand48(time(0));
+    double randomTime = drand48() + 1;
+    
+    if (self.lastTargetSpawnTimeInterval > randomTime) {
+        self.lastTargetSpawnTimeInterval = 0;
+       
+        int randomChip = arc4random_uniform(5) + 2;
+        //add target
+        if (self.count > randomChip) {
+            [self addBlueChip];
+            self.count = 0;
+        } else {
+            [self addMonster];
+            self.count += 1;
+        }
+        
+    }
+    
+}
+
 - (void)update:(NSTimeInterval)currentTime {
     // Handle time delta.
     // If we drop below 60fps, we still want everything to move the same distance.
@@ -182,6 +237,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.lastUpdateTimeInterval = currentTime;
     }
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
+    [self updateTargetWithTime:timeSinceLast];
     
 }
 //
@@ -265,9 +321,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     NSLog(@"power up!!");
     [self.powerUp removeFromParent];
     [powerUp removeFromParent];
-    self.superBullet = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
-    self.superBullet.position = CGPointMake(200, 30);
-    [self addChild:self.superBullet];
+    self.bulletNode = [SKSpriteNode spriteNodeWithImageNamed:@"doublebullet"];
+    self.bulletNode.position = CGPointMake(200, 30);
+    [self addChild:self.bulletNode];
     
 }
 
