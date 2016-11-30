@@ -87,22 +87,23 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self addChild:self.bulletNode];
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
-        self.leftAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft1"];
-        self.leftAmp1.position = CGPointMake(350, 400);
-        [self addChild:self.leftAmp1];
         
-        self.leftAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft2"];
-        self.leftAmp2.position = CGPointMake(350, 300);
-        [self addChild:self.leftAmp2];
-        
-        self.rightAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright"];
-        self.rightAmp1.position = CGPointMake(50, 465);
-        [self addChild:self.rightAmp1];
-        
-        self.rightAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright2"];
-        self.rightAmp2.position = CGPointMake(50, 365);
-        [self addChild:self.rightAmp2];
-        
+//        self.leftAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft1"];
+//        self.leftAmp1.position = CGPointMake(350, 400);
+//        [self addChild:self.leftAmp1];
+//        
+//        self.leftAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricleft2"];
+//        self.leftAmp2.position = CGPointMake(350, 300);
+//        [self addChild:self.leftAmp2];
+//        
+//        self.rightAmp1 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright"];
+//        self.rightAmp1.position = CGPointMake(50, 465);
+//        [self addChild:self.rightAmp1];
+//        
+//        self.rightAmp2 = [SKSpriteNode spriteNodeWithImageNamed:@"electricright2"];
+//        self.rightAmp2.position = CGPointMake(50, 365);
+//        [self addChild:self.rightAmp2];
+//        
         //        self.target = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
         //        self.target.position = CGPointMake(200, 700);
         //        [self addChild:self.target];
@@ -216,7 +217,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.lastForceSpawnTimeInterval = 0;
         
         //apply force to bullet
-        int randomXDirection = arc4random_uniform(400) + 200;
+        int randomXDirection = arc4random_uniform(400) + 2000;
         int randomNegative = arc4random_uniform(2) + 1;
         if (randomNegative == 1) {
             
@@ -394,9 +395,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self projectile:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
         
         if([secondBody.node.name  isEqual: @"powerup"]){
-            NSLog(@"bullet hit powerup");
+            [self shrinkAndMoveToPosition:self.view.center];
             
             [self thePowerUp:(SKSpriteNode *)firstBody.node didcolideWithPowerUp:(SKSpriteNode *)secondBody.node];
+            
         }else if ([secondBody.node.name isEqual:@"wall"]){
             RetryScene* retryScene = [[RetryScene alloc] initWithSize:self.frame.size playerWon:NO];
             [self.view presentScene:retryScene];
@@ -530,4 +532,23 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
 }
 
+- (void)shrinkAndMoveToPosition:(CGPoint)position {
+    
+    SKSpriteNode* superPower = [SKSpriteNode spriteNodeWithImageNamed:@"superPower"];
+    superPower.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    [self addChild:superPower];
+
+    
+    SKAction *move = [SKAction moveTo:position duration:.5];
+    SKAction *scale = [SKAction scaleTo:.3 duration:.5];
+    SKAction *moveAndScale = [SKAction group:@[move, scale]];
+    [self runAction:moveAndScale completion:^{
+        
+
+        SKAction *animate = [SKAction scaleBy:0.0 duration:.5];
+        
+        [superPower runAction:[SKAction repeatActionForever:animate]];
+        
+    }];
+}
 @end

@@ -12,7 +12,7 @@
 -(id)initWithSize:(CGSize)size playerWon:(BOOL)isWon {
     self = [super initWithSize:size];
     if (self) {
-        SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background.png"];
+        SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"caughtDuck"];
         background.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         [self addChild:background];
         
