@@ -29,6 +29,8 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) int scoreValue;
 @property (nonatomic) SKSpriteNode * pauseButton;
 @property (nonatomic) int count;
+@property (nonatomic) SKSpriteNode * dogRight;
+@property (nonatomic) SKSpriteNode * dogLeft;
 
 @end
 
@@ -110,6 +112,18 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.scoreBoard.position = CGPointMake(self.frame.size.width - 20, self.frame.size.height - 25);
         [self addChild:self.scoreBoard];
         
+        //Add dogLeft
+        self.dogLeft = [SKSpriteNode spriteNodeWithImageNamed:@"dogLeft"];
+        self.dogLeft.position = CGPointMake(self.frame.size.width + 50, self.frame.size.height/2);
+        self.dogLeft.name = @"dogLeft";
+        [self addChild:self.dogLeft];
+        
+        //Add dogRight
+        self.dogRight = [SKSpriteNode spriteNodeWithImageNamed:@"dogRight"];
+        self.dogRight.position = CGPointMake(-50 , self.frame.size.height/2);
+        self.dogRight.name = @"dogRight";
+        [self addChild:self.dogRight];
+        
     }
     
     
@@ -186,12 +200,26 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     self.lastForceSpawnTimeInterval += timeSinceLast;
     if (self.lastForceSpawnTimeInterval > 2) {
         self.lastForceSpawnTimeInterval = 0;
+        
         //apply force to bullet
         int randomXDirection = arc4random_uniform(400) + 200;
         int randomNegative = arc4random_uniform(2) + 1;
         if (randomNegative == 1) {
             randomXDirection = randomXDirection * - 1;
+            //Make dog appear from right
+            SKAction * dogMoveLeft = [SKAction moveTo:CGPointMake(self.frame.size.width - 10, self.frame.size.height/2) duration:0.8];
+            SKAction *dogMoveLeftBack = [SKAction moveTo:CGPointMake(self.frame.size.width + 50, self.frame.size.height/2) duration:0.8];
+            [self.dogLeft runAction:[SKAction sequence:@[dogMoveLeft, dogMoveLeftBack]]];
+        } else {
+            
+            //Make dog appear from left
+            SKAction * dogMoveRight = [SKAction moveTo:CGPointMake(10, self.frame.size.height/2) duration:0.8];
+            SKAction *dogMoveRightBack = [SKAction moveTo:CGPointMake(-50, self.frame.size.height/2) duration:0.8];
+            [self.dogRight runAction:[SKAction sequence:@[dogMoveRight, dogMoveRightBack]]];
+            
         }
+        
+        //Push bullet
         SKAction * actionMove = [SKAction runBlock:^{
             [self.bulletNode.physicsBody applyForce:CGVectorMake(randomXDirection, 0)];
         }];
@@ -299,7 +327,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     //float velocity = 480.0/1.0;
     //float realMoveDuration = self.size.width / velocity;
     SKAction * actionMove = [SKAction runBlock:^{
-        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 2500)];
+        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 400)];
     }];
     [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
     
