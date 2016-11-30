@@ -10,5 +10,4 @@
 
 @interface myScene : SKScene
 
--(void)addMonster;
 @end
