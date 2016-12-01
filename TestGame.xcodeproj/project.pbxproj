@@ -13,6 +13,7 @@
 		2B70FC2D1DEF8E9A00AE8A80 /* dogRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B70FC291DEF8E9A00AE8A80 /* dogRight.atlas */; };
 		2BC0C7E01DEF5E46006AEE1B /* dogRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C7DF1DEF5E46006AEE1B /* dogRight.atlas */; };
 		2BC0C7E41DEF6AEF006AEE1B /* dogLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C7E31DEF6AEF006AEE1B /* dogLeft.atlas */; };
+		2BF6409E1DEFA23300921934 /* ZLetterGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF6409D1DEFA23300921934 /* ZLetterGestureRecognizer.m */; };
 		CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793441DEDEBB7003B6620 /* RetryScene.m */; };
 		CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793471DEDF7FB003B6620 /* StartScene.m */; };
 		CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793491DEE096B003B6620 /* StartScene.sks */; };
@@ -36,6 +37,8 @@
 		2B70FC291DEF8E9A00AE8A80 /* dogRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogRight.atlas; sourceTree = "<group>"; };
 		2BC0C7DF1DEF5E46006AEE1B /* dogRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogRight.atlas; sourceTree = "<group>"; };
 		2BC0C7E31DEF6AEF006AEE1B /* dogLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogLeft.atlas; sourceTree = "<group>"; };
+		2BF6409D1DEFA23300921934 /* ZLetterGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLetterGestureRecognizer.m; sourceTree = "<group>"; };
+		2BF6409F1DEFA24100921934 /* ZLetterGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLetterGestureRecognizer.h; sourceTree = "<group>"; };
 		CA8793431DEDEBB7003B6620 /* RetryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryScene.h; sourceTree = "<group>"; };
 		CA8793441DEDEBB7003B6620 /* RetryScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetryScene.m; sourceTree = "<group>"; };
 		CA8793461DEDF7FB003B6620 /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScene.h; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 				CA8793521DEF8520003B6620 /* RetryScene.sks */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
+				2BF6409F1DEFA24100921934 /* ZLetterGestureRecognizer.h */,
+				2BF6409D1DEFA23300921934 /* ZLetterGestureRecognizer.m */,
 				CABC60831DEA5F0C00CC1AEE /* Main.storyboard */,
 				2B70FC261DEF8E9A00AE8A80 /* duckExtra.atlas */,
 				2B70FC271DEF8E9A00AE8A80 /* duckTarget.atlas */,
@@ -213,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABC60821DEA5F0C00CC1AEE /* GameViewController.m in Sources */,
+				2BF6409E1DEFA23300921934 /* ZLetterGestureRecognizer.m in Sources */,
 				CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */,
 				CA87934D1DEF3716003B6620 /* PausePlay.m in Sources */,
 				CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */,

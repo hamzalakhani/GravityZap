@@ -8,6 +8,7 @@
 
 #import "myScene.h"
 #import "RetryScene.h"
+#import "ZLetterGestureRecognizer.h"
 @import UIKit;
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t blueChipCategory        =  0x1 << 1;
@@ -46,6 +47,12 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @implementation myScene
 
 #pragma mark - initialize scene
+
+-(void)didMoveToView:(SKView *)view {
+    
+    [self.view addGestureRecognizer: [[ZLetterGestureRecognizer alloc] initWithTarget:self action:@selector(zLetterMade:)]];
+    
+}
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -304,12 +311,20 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         int randomChip = arc4random_uniform(5) + 2;
         //add target
         
-        if (self.count > randomChip) {
-            [self addDuckTargetNode];
-            self.count = 0;
-        } else {
-            [self addDuckExtraNode];
-            self.count += 1;
+        if (self.isSecretLevelActivated) {
+            
+            [self addSecretDogNode];
+            
+        }else {
+            
+            if (self.count > randomChip) {
+                [self addDuckTargetNode];
+                self.count = 0;
+            } else {
+                [self addDuckExtraNode];
+                self.count += 1;
+            }
+            
         }
         
     }
@@ -697,4 +712,12 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     
 }
 
+#pragma mark - Z gesture
+
+-(void)zLetterMade:(ZLetterGestureRecognizer *)zLetterRecognizer {
+    
+    NSLog(@"Z letter");
+    self.isSecretLevelActivated = YES;
+    
+}
 @end
