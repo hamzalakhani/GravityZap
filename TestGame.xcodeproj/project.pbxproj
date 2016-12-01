@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B70FC2A1DEF8E9A00AE8A80 /* duckExtra.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B70FC261DEF8E9A00AE8A80 /* duckExtra.atlas */; };
+		2B70FC2B1DEF8E9A00AE8A80 /* duckTarget.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B70FC271DEF8E9A00AE8A80 /* duckTarget.atlas */; };
+		2B70FC2C1DEF8E9A00AE8A80 /* dogLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B70FC281DEF8E9A00AE8A80 /* dogLeft.atlas */; };
+		2B70FC2D1DEF8E9A00AE8A80 /* dogRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2B70FC291DEF8E9A00AE8A80 /* dogRight.atlas */; };
 		2BC0C7E01DEF5E46006AEE1B /* dogRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C7DF1DEF5E46006AEE1B /* dogRight.atlas */; };
 		2BC0C7E41DEF6AEF006AEE1B /* dogLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C7E31DEF6AEF006AEE1B /* dogLeft.atlas */; };
 		CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793441DEDEBB7003B6620 /* RetryScene.m */; };
 		CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793471DEDF7FB003B6620 /* StartScene.m */; };
 		CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793491DEE096B003B6620 /* StartScene.sks */; };
 		CA87934D1DEF3716003B6620 /* PausePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CA87934C1DEF3716003B6620 /* PausePlay.m */; };
-		CA87934F1DEF6A6C003B6620 /* Duck.atlas in Resources */ = {isa = PBXBuildFile; fileRef = CA87934E1DEF6A6C003B6620 /* Duck.atlas */; };
-		CA8793511DEF6A83003B6620 /* power.atlas in Resources */ = {isa = PBXBuildFile; fileRef = CA8793501DEF6A83003B6620 /* power.atlas */; };
 		CA8793531DEF8520003B6620 /* RetryScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793521DEF8520003B6620 /* RetryScene.sks */; };
 		CABC60751DEA5F0C00CC1AEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60741DEA5F0C00CC1AEE /* main.m */; };
 		CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */; };
@@ -28,6 +30,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B70FC261DEF8E9A00AE8A80 /* duckExtra.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = duckExtra.atlas; sourceTree = "<group>"; };
+		2B70FC271DEF8E9A00AE8A80 /* duckTarget.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = duckTarget.atlas; sourceTree = "<group>"; };
+		2B70FC281DEF8E9A00AE8A80 /* dogLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogLeft.atlas; sourceTree = "<group>"; };
+		2B70FC291DEF8E9A00AE8A80 /* dogRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogRight.atlas; sourceTree = "<group>"; };
 		2BC0C7DF1DEF5E46006AEE1B /* dogRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogRight.atlas; sourceTree = "<group>"; };
 		2BC0C7E31DEF6AEF006AEE1B /* dogLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = dogLeft.atlas; sourceTree = "<group>"; };
 		CA8793431DEDEBB7003B6620 /* RetryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetryScene.h; sourceTree = "<group>"; };
@@ -37,8 +43,6 @@
 		CA8793491DEE096B003B6620 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		CA87934B1DEF3716003B6620 /* PausePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PausePlay.h; sourceTree = "<group>"; };
 		CA87934C1DEF3716003B6620 /* PausePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PausePlay.m; sourceTree = "<group>"; };
-		CA87934E1DEF6A6C003B6620 /* Duck.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Duck.atlas; sourceTree = "<group>"; };
-		CA8793501DEF6A83003B6620 /* power.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = power.atlas; sourceTree = "<group>"; };
 		CA8793521DEF8520003B6620 /* RetryScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RetryScene.sks; sourceTree = "<group>"; };
 		CABC60701DEA5F0C00CC1AEE /* TestGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABC60741DEA5F0C00CC1AEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,9 +109,11 @@
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
 				CABC60831DEA5F0C00CC1AEE /* Main.storyboard */,
+				2B70FC261DEF8E9A00AE8A80 /* duckExtra.atlas */,
+				2B70FC271DEF8E9A00AE8A80 /* duckTarget.atlas */,
+				2B70FC281DEF8E9A00AE8A80 /* dogLeft.atlas */,
+				2B70FC291DEF8E9A00AE8A80 /* dogRight.atlas */,
 				CABC60861DEA5F0C00CC1AEE /* Assets.xcassets */,
-				CA8793501DEF6A83003B6620 /* power.atlas */,
-				CA87934E1DEF6A6C003B6620 /* Duck.atlas */,
 				CABC60881DEA5F0C00CC1AEE /* LaunchScreen.storyboard */,
 				CABC608B1DEA5F0C00CC1AEE /* Info.plist */,
 				CABC60731DEA5F0C00CC1AEE /* Supporting Files */,
@@ -184,16 +190,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B70FC2A1DEF8E9A00AE8A80 /* duckExtra.atlas in Resources */,
+				2B70FC2C1DEF8E9A00AE8A80 /* dogLeft.atlas in Resources */,
 				CABC60851DEA5F0C00CC1AEE /* Main.storyboard in Resources */,
 				CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */,
 				CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */,
 				CA8793531DEF8520003B6620 /* RetryScene.sks in Resources */,
+				2B70FC2B1DEF8E9A00AE8A80 /* duckTarget.atlas in Resources */,
 				2BC0C7E41DEF6AEF006AEE1B /* dogLeft.atlas in Resources */,
 				CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */,
 				2BC0C7E01DEF5E46006AEE1B /* dogRight.atlas in Resources */,
-				CA87934F1DEF6A6C003B6620 /* Duck.atlas in Resources */,
+				2B70FC2D1DEF8E9A00AE8A80 /* dogRight.atlas in Resources */,
 				CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */,
-				CA8793511DEF6A83003B6620 /* power.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
