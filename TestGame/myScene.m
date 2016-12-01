@@ -44,6 +44,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * secretDogNode;
 @property (nonatomic) bool isSecretLevelActivated;
 @property ZLetterGestureRecognizer *zLetterGestureRecognizer;
+@property (nonatomic) SKSpriteNode * backgroundImage;
 
 @end
 
@@ -89,10 +90,10 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         NSLog(@"Size: %@", NSStringFromCGSize(size));
         
         // 3
-        SKSpriteNode *bgImage = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-        [self addChild:bgImage];
-        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
-        
+        self.backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+        [self addChild:self.backgroundImage];
+        self.backgroundImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        CGRect frame = self.backgroundImage.frame;
         
         //adding the powerup
         self.powerUp = [SKSpriteNode spriteNodeWithImageNamed:@"powerup"];
@@ -317,6 +318,16 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         //add target
         
         if (self.isSecretLevelActivated) {
+            
+            
+            //SKAction *scaleDownAction = [SKAction scaleXTo:0 y:0 duration:0.5];
+            //[self.backgroundImage removeFromParent];
+            self.backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"browserStage"];
+            
+            //[self addChild:self.backgroundImage];
+            //SKAction *scaleUpAction = [SKAction scaleXTo:self.frame.size.width y:self.frame.size.height duration:0.5];
+            
+            //[self.backgroundImage runAction:[SKAction sequence:@[scaleDownAction, scaleUpAction]]];
             
             [self addSecretDogNode];
             
@@ -617,7 +628,6 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     SKSpriteNode* superPower = [SKSpriteNode spriteNodeWithImageNamed:@"happyDog"];
     superPower.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     [self addChild:superPower];
-    
     
     SKAction *move = [SKAction moveTo:position duration:.5];
     SKAction *scale = [SKAction scaleTo:.3 duration:.5];
