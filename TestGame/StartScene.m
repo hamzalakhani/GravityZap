@@ -8,12 +8,29 @@
 
 #import "StartScene.h"
 #import "myScene.h"
+#import "ZLetterGestureRecognizer.h"
+
+@interface StartScene() <TouchProtocol>
+
+@property ZLetterGestureRecognizer *zLetterGestureRecognizer;
+
+@end
+
+
 @implementation StartScene
 
+-(void)didMoveToView:(SKView *)view {
+    
+    self.zLetterGestureRecognizer = [[ZLetterGestureRecognizer alloc] init];
+    [self.view addGestureRecognizer: self.zLetterGestureRecognizer];
+    self.zLetterGestureRecognizer.touchDelegate = self;
+    
+}
 
 
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+
+-(void)touchStarted:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
         CGPoint location = [touch locationInNode:self];
         SKNode *startButtonNode = [self nodeAtPoint:location];
@@ -40,4 +57,8 @@
 
         
     }
+-(void)touchFinished:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    
+}
 @end

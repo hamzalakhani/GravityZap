@@ -9,6 +9,7 @@
 #import "myScene.h"
 #import "RetryScene.h"
 #import "ZLetterGestureRecognizer.h"
+#import "PauseScene.h"
 @import UIKit;
 
 static const uint32_t projectileCategory     =  0x1 << 0;
@@ -383,7 +384,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         [self addChild:self.pauseButton];
         CGPoint location = [touch locationInNode:self];
         if([self.pauseButton containsPoint:location]){
-            RetryScene *scene = (RetryScene *)[SKScene nodeWithFileNamed:@"RetryScene"];
+            PauseScene *scene = (PauseScene *)[SKScene nodeWithFileNamed:@"PauseScene"];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             
             [self.view presentScene:scene];

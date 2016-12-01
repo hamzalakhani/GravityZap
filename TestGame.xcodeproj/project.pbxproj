@@ -17,8 +17,9 @@
 		CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793441DEDEBB7003B6620 /* RetryScene.m */; };
 		CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793471DEDF7FB003B6620 /* StartScene.m */; };
 		CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793491DEE096B003B6620 /* StartScene.sks */; };
-		CA87934D1DEF3716003B6620 /* PausePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CA87934C1DEF3716003B6620 /* PausePlay.m */; };
 		CA8793531DEF8520003B6620 /* RetryScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793521DEF8520003B6620 /* RetryScene.sks */; };
+		CA8793551DF09386003B6620 /* PauseScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793541DF09386003B6620 /* PauseScene.sks */; };
+		CA8793581DF09A7E003B6620 /* PauseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793571DF09A7E003B6620 /* PauseScene.m */; };
 		CABC60751DEA5F0C00CC1AEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60741DEA5F0C00CC1AEE /* main.m */; };
 		CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */; };
 		CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC607B1DEA5F0C00CC1AEE /* Actions.sks */; };
@@ -44,9 +45,10 @@
 		CA8793461DEDF7FB003B6620 /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScene.h; sourceTree = "<group>"; };
 		CA8793471DEDF7FB003B6620 /* StartScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartScene.m; sourceTree = "<group>"; };
 		CA8793491DEE096B003B6620 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
-		CA87934B1DEF3716003B6620 /* PausePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PausePlay.h; sourceTree = "<group>"; };
-		CA87934C1DEF3716003B6620 /* PausePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PausePlay.m; sourceTree = "<group>"; };
 		CA8793521DEF8520003B6620 /* RetryScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RetryScene.sks; sourceTree = "<group>"; };
+		CA8793541DF09386003B6620 /* PauseScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PauseScene.sks; sourceTree = "<group>"; };
+		CA8793561DF09A7E003B6620 /* PauseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseScene.h; sourceTree = "<group>"; };
+		CA8793571DF09A7E003B6620 /* PauseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseScene.m; sourceTree = "<group>"; };
 		CABC60701DEA5F0C00CC1AEE /* TestGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABC60741DEA5F0C00CC1AEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -103,12 +105,13 @@
 				CABC60921DEA63E200CC1AEE /* myScene.m */,
 				CA8793431DEDEBB7003B6620 /* RetryScene.h */,
 				CA8793441DEDEBB7003B6620 /* RetryScene.m */,
+				CA8793561DF09A7E003B6620 /* PauseScene.h */,
+				CA8793571DF09A7E003B6620 /* PauseScene.m */,
 				CA8793461DEDF7FB003B6620 /* StartScene.h */,
 				CA8793471DEDF7FB003B6620 /* StartScene.m */,
-				CA87934B1DEF3716003B6620 /* PausePlay.h */,
-				CA87934C1DEF3716003B6620 /* PausePlay.m */,
 				CA8793491DEE096B003B6620 /* StartScene.sks */,
 				CA8793521DEF8520003B6620 /* RetryScene.sks */,
+				CA8793541DF09386003B6620 /* PauseScene.sks */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
 				2BF6409F1DEFA24100921934 /* ZLetterGestureRecognizer.h */,
@@ -201,6 +204,7 @@
 				CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */,
 				CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */,
 				CA8793531DEF8520003B6620 /* RetryScene.sks in Resources */,
+				CA8793551DF09386003B6620 /* PauseScene.sks in Resources */,
 				2B70FC2B1DEF8E9A00AE8A80 /* duckTarget.atlas in Resources */,
 				2BC0C7E41DEF6AEF006AEE1B /* dogLeft.atlas in Resources */,
 				CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */,
@@ -220,12 +224,12 @@
 				CABC60821DEA5F0C00CC1AEE /* GameViewController.m in Sources */,
 				2BF6409E1DEFA23300921934 /* ZLetterGestureRecognizer.m in Sources */,
 				CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */,
-				CA87934D1DEF3716003B6620 /* PausePlay.m in Sources */,
 				CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */,
 				CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */,
 				CABC60751DEA5F0C00CC1AEE /* main.m in Sources */,
 				CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */,
 				CABC60931DEA63E200CC1AEE /* myScene.m in Sources */,
+				CA8793581DF09A7E003B6620 /* PauseScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
