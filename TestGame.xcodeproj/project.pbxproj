@@ -20,6 +20,8 @@
 		CA8793531DEF8520003B6620 /* RetryScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793521DEF8520003B6620 /* RetryScene.sks */; };
 		CA8793551DF09386003B6620 /* PauseScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793541DF09386003B6620 /* PauseScene.sks */; };
 		CA8793581DF09A7E003B6620 /* PauseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8793571DF09A7E003B6620 /* PauseScene.m */; };
+		CA87935A1DF0B270003B6620 /* StoryScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA8793591DF0B270003B6620 /* StoryScene.sks */; };
+		CA87935D1DF0BBCD003B6620 /* StoryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA87935C1DF0BBCD003B6620 /* StoryScene.m */; };
 		CABC60751DEA5F0C00CC1AEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60741DEA5F0C00CC1AEE /* main.m */; };
 		CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */; };
 		CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC607B1DEA5F0C00CC1AEE /* Actions.sks */; };
@@ -49,6 +51,9 @@
 		CA8793541DF09386003B6620 /* PauseScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PauseScene.sks; sourceTree = "<group>"; };
 		CA8793561DF09A7E003B6620 /* PauseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseScene.h; sourceTree = "<group>"; };
 		CA8793571DF09A7E003B6620 /* PauseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseScene.m; sourceTree = "<group>"; };
+		CA8793591DF0B270003B6620 /* StoryScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StoryScene.sks; sourceTree = "<group>"; };
+		CA87935B1DF0BBCD003B6620 /* StoryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryScene.h; sourceTree = "<group>"; };
+		CA87935C1DF0BBCD003B6620 /* StoryScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryScene.m; sourceTree = "<group>"; };
 		CABC60701DEA5F0C00CC1AEE /* TestGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABC60741DEA5F0C00CC1AEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -107,11 +112,14 @@
 				CA8793441DEDEBB7003B6620 /* RetryScene.m */,
 				CA8793561DF09A7E003B6620 /* PauseScene.h */,
 				CA8793571DF09A7E003B6620 /* PauseScene.m */,
+				CA87935B1DF0BBCD003B6620 /* StoryScene.h */,
+				CA87935C1DF0BBCD003B6620 /* StoryScene.m */,
 				CA8793461DEDF7FB003B6620 /* StartScene.h */,
 				CA8793471DEDF7FB003B6620 /* StartScene.m */,
 				CA8793491DEE096B003B6620 /* StartScene.sks */,
 				CA8793521DEF8520003B6620 /* RetryScene.sks */,
 				CA8793541DF09386003B6620 /* PauseScene.sks */,
+				CA8793591DF0B270003B6620 /* StoryScene.sks */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
 				2BF6409F1DEFA24100921934 /* ZLetterGestureRecognizer.h */,
@@ -200,6 +208,7 @@
 			files = (
 				2B70FC2A1DEF8E9A00AE8A80 /* duckExtra.atlas in Resources */,
 				2B70FC2C1DEF8E9A00AE8A80 /* dogLeft.atlas in Resources */,
+				CA87935A1DF0B270003B6620 /* StoryScene.sks in Resources */,
 				CABC60851DEA5F0C00CC1AEE /* Main.storyboard in Resources */,
 				CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */,
 				CA87934A1DEE096B003B6620 /* StartScene.sks in Resources */,
@@ -227,6 +236,7 @@
 				CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */,
 				CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */,
 				CABC60751DEA5F0C00CC1AEE /* main.m in Sources */,
+				CA87935D1DF0BBCD003B6620 /* StoryScene.m in Sources */,
 				CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */,
 				CABC60931DEA63E200CC1AEE /* myScene.m in Sources */,
 				CA8793581DF09A7E003B6620 /* PauseScene.m in Sources */,
