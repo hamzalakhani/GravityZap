@@ -10,12 +10,13 @@
 #import "RetryScene.h"
 #import "ZLetterGestureRecognizer.h"
 @import UIKit;
+
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t blueChipCategory        =  0x1 << 1;
 static const uint32_t targetCategory        =  0x1 << 1;
 static const uint32_t powerUpCategory     =  0x1 << 1;
 
-@interface myScene ()<SKPhysicsContactDelegate>
+@interface myScene ()<SKPhysicsContactDelegate, TouchProtocol>
 @property (nonatomic) SKSpriteNode * bulletNode;
 @property (nonatomic) SKSpriteNode * superBullet;
 
@@ -41,6 +42,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 @property (nonatomic) NSMutableArray <SKTexture*>* duckExtraAnimation;
 @property (nonatomic) SKSpriteNode * secretDogNode;
 @property (nonatomic) bool isSecretLevelActivated;
+@property ZLetterGestureRecognizer *zLetterGestureRecognizer;
 
 @end
 
@@ -50,7 +52,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
 -(void)didMoveToView:(SKView *)view {
     
-    [self.view addGestureRecognizer: [[ZLetterGestureRecognizer alloc] initWithTarget:self action:@selector(zLetterMade:)]];
+    self.zLetterGestureRecognizer = [[ZLetterGestureRecognizer alloc] initWithTarget:self action:@selector(zLetterMade:)];
+    [self.view addGestureRecognizer: self.zLetterGestureRecognizer];
+    self.zLetterGestureRecognizer.touchDelegate = self;
     
 }
 
@@ -369,7 +373,26 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
 
 #pragma mark - touch methods
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+-(void)touchStarted:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    for (UITouch *touch in touches){
+        self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pause"];
+        
+        self.pauseButton.size = CGSizeMake(50, 50);
+        self.pauseButton.position = CGPointMake( 20, self.frame.size.height - 25);
+        [self addChild:self.pauseButton];
+        CGPoint location = [touch locationInNode:self];
+        if([self.pauseButton containsPoint:location]){
+            RetryScene *scene = (RetryScene *)[SKScene nodeWithFileNamed:@"RetryScene"];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            
+            [self.view presentScene:scene];
+        }
+    }
+    
+}
+
+-(void)touchFinished:(NSSet *)touches withEvent:(UIEvent *)event {
     
     // 1 - Choose one of the touches to work with
     UITouch * touch = [touches anyObject];
@@ -587,23 +610,6 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     }
     
 }
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches){
-        self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pause"];
-
-        self.pauseButton.size = CGSizeMake(50, 50);
-        self.pauseButton.position = CGPointMake( 20, self.frame.size.height - 25);
-        [self addChild:self.pauseButton];
-        CGPoint location = [touch locationInNode:self];
-        if([self.pauseButton containsPoint:location]){
-            RetryScene *scene = (RetryScene *)[SKScene nodeWithFileNamed:@"RetryScene"];
-            scene.scaleMode = SKSceneScaleModeAspectFill;
-
-            [self.view presentScene:scene];
-        }
-    }
-}
-
 
 - (void)shrinkAndMoveToPosition:(CGPoint)position {
     

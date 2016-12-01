@@ -8,6 +8,14 @@
 
 #import "RetryScene.h"
 #import "myScene.h"
+#import "ZLetterGestureRecognizer.h"
+
+@interface RetryScene() <TouchProtocol>
+
+@property ZLetterGestureRecognizer *zLetterGestureRecognizer;
+
+@end
+
 @implementation RetryScene
 //-(id)initWithSize:(CGSize)size playerWon:(BOOL)isWon {
 //    self = [super initWithSize:size];
@@ -29,7 +37,16 @@
 //    }
 //    return self;
 //}
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+-(void)didMoveToView:(SKView *)view {
+    
+    self.zLetterGestureRecognizer = [[ZLetterGestureRecognizer alloc] init];
+    [self.view addGestureRecognizer: self.zLetterGestureRecognizer];
+    self.zLetterGestureRecognizer.touchDelegate = self;
+    
+}
+
+-(void)touchStarted:(NSSet *)touches withEvent:(UIEvent *)event {
+    
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
     SKNode *resumeButton = [self nodeAtPoint:location];
@@ -44,6 +61,12 @@
         resumeGameScene.scaleMode = SKSceneScaleModeAspectFill;
         [self.scene.view presentScene: resumeGameScene transition: reveal];
     }
+    
+}
+
+-(void)touchFinished:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    
 }
 //
 //-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TouchProtocol <NSObject>
+
+-(void)touchStarted:(NSSet *)touches withEvent:(UIEvent *)event;
+-(void)touchFinished:(NSSet *)touches withEvent:(UIEvent *)event;
+
+@end
+
 @interface ZLetterGestureRecognizer : UIGestureRecognizer
+
+@property (nonatomic, weak) id<TouchProtocol> touchDelegate;
 
 - (id)initWithTarget:(id)target action:(SEL)action;
 

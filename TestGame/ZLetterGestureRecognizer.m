@@ -37,8 +37,9 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    
     [super touchesBegan:touches withEvent:event]; // Call the super.
+    
+    [self.touchDelegate touchStarted:touches withEvent:event];
     
     self.strokePrecision = 10.0; //Points of allowable variation in line direction
     
@@ -85,6 +86,9 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event]; // Call the super.
+    
+    [self.touchDelegate touchFinished:touches withEvent:event];
+    
     [self reset];
     
 }
