@@ -24,8 +24,6 @@
 		CA87935D1DF0BBCD003B6620 /* StoryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA87935C1DF0BBCD003B6620 /* StoryScene.m */; };
 		CABC60751DEA5F0C00CC1AEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60741DEA5F0C00CC1AEE /* main.m */; };
 		CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */; };
-		CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CABC607B1DEA5F0C00CC1AEE /* Actions.sks */; };
-		CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC607E1DEA5F0C00CC1AEE /* GameScene.m */; };
 		CABC60821DEA5F0C00CC1AEE /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC60811DEA5F0C00CC1AEE /* GameViewController.m */; };
 		CABC60851DEA5F0C00CC1AEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CABC60831DEA5F0C00CC1AEE /* Main.storyboard */; };
 		CABC60871DEA5F0C00CC1AEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CABC60861DEA5F0C00CC1AEE /* Assets.xcassets */; };
@@ -58,9 +56,6 @@
 		CABC60741DEA5F0C00CC1AEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CABC607B1DEA5F0C00CC1AEE /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		CABC607D1DEA5F0C00CC1AEE /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		CABC607E1DEA5F0C00CC1AEE /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		CABC60801DEA5F0C00CC1AEE /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		CABC60811DEA5F0C00CC1AEE /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		CABC60841DEA5F0C00CC1AEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,23 +98,20 @@
 			children = (
 				CABC60761DEA5F0C00CC1AEE /* AppDelegate.h */,
 				CABC60771DEA5F0C00CC1AEE /* AppDelegate.m */,
-				CABC607B1DEA5F0C00CC1AEE /* Actions.sks */,
-				CABC607D1DEA5F0C00CC1AEE /* GameScene.h */,
-				CABC607E1DEA5F0C00CC1AEE /* GameScene.m */,
-				CABC60911DEA63E200CC1AEE /* myScene.h */,
-				CABC60921DEA63E200CC1AEE /* myScene.m */,
-				CA8793431DEDEBB7003B6620 /* RetryScene.h */,
-				CA8793441DEDEBB7003B6620 /* RetryScene.m */,
-				CA8793561DF09A7E003B6620 /* PauseScene.h */,
-				CA8793571DF09A7E003B6620 /* PauseScene.m */,
+				CA8793591DF0B270003B6620 /* StoryScene.sks */,
 				CA87935B1DF0BBCD003B6620 /* StoryScene.h */,
 				CA87935C1DF0BBCD003B6620 /* StoryScene.m */,
+				CA8793491DEE096B003B6620 /* StartScene.sks */,
 				CA8793461DEDF7FB003B6620 /* StartScene.h */,
 				CA8793471DEDF7FB003B6620 /* StartScene.m */,
-				CA8793491DEE096B003B6620 /* StartScene.sks */,
+				CABC60911DEA63E200CC1AEE /* myScene.h */,
+				CABC60921DEA63E200CC1AEE /* myScene.m */,
 				CA8793521DEF8520003B6620 /* RetryScene.sks */,
+				CA8793431DEDEBB7003B6620 /* RetryScene.h */,
+				CA8793441DEDEBB7003B6620 /* RetryScene.m */,
 				CA8793541DF09386003B6620 /* PauseScene.sks */,
-				CA8793591DF0B270003B6620 /* StoryScene.sks */,
+				CA8793561DF09A7E003B6620 /* PauseScene.h */,
+				CA8793571DF09A7E003B6620 /* PauseScene.m */,
 				CABC60801DEA5F0C00CC1AEE /* GameViewController.h */,
 				CABC60811DEA5F0C00CC1AEE /* GameViewController.m */,
 				2BF6409F1DEFA24100921934 /* ZLetterGestureRecognizer.h */,
@@ -219,7 +211,6 @@
 				CABC608A1DEA5F0C00CC1AEE /* LaunchScreen.storyboard in Resources */,
 				2BC0C7E01DEF5E46006AEE1B /* dogRight.atlas in Resources */,
 				2B70FC2D1DEF8E9A00AE8A80 /* dogRight.atlas in Resources */,
-				CABC607C1DEA5F0C00CC1AEE /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +225,6 @@
 				2BF6409E1DEFA23300921934 /* ZLetterGestureRecognizer.m in Sources */,
 				CA8793451DEDEBB7003B6620 /* RetryScene.m in Sources */,
 				CABC60781DEA5F0C00CC1AEE /* AppDelegate.m in Sources */,
-				CABC607F1DEA5F0C00CC1AEE /* GameScene.m in Sources */,
 				CABC60751DEA5F0C00CC1AEE /* main.m in Sources */,
 				CA87935D1DF0BBCD003B6620 /* StoryScene.m in Sources */,
 				CA8793481DEDF7FB003B6620 /* StartScene.m in Sources */,

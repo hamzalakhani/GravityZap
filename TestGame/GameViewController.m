@@ -7,8 +7,7 @@
 //
 
 #import "GameViewController.h"
-#import "GameScene.h"
-#import "StartScene.h"
+#import "StoryScene.h"
 @import AVFoundation;
 
 @interface GameViewController ()
@@ -20,7 +19,7 @@
     [super viewDidLoad];
 
     // Load the SKScene from 'GameScene.sks'
-    StartScene *scene = (StartScene *)[SKScene nodeWithFileNamed:@"StartScene"];
+    StoryScene *scene = (StoryScene *)[SKScene nodeWithFileNamed:@"StoryScene"];
     
     // Set the scale mode to scale to fit the window
     SKView *skView = (SKView *)self.view;
