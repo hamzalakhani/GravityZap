@@ -152,7 +152,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
         //Add dogLeft
         self.dogLeft = [SKSpriteNode spriteNodeWithImageNamed:@"dogLeft1"];
-        self.dogLeft.size = CGSizeMake(50, 50);
+        self.dogLeft.size = CGSizeMake(100, 100);
         self.dogLeft.position = CGPointMake(self.frame.size.width + 50, self.frame.size.height/2);
         self.dogLeft.name = @"dogLeft";
         self.dogLeft.texture = [SKTexture textureWithImageNamed:@"dogLeft"];
@@ -165,7 +165,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         
         //Add dogRight
         self.dogRight = [SKSpriteNode spriteNodeWithImageNamed:@"dogRight1"];
-        self.dogRight.size = CGSizeMake(50, 50);
+        self.dogRight.size = CGSizeMake(100, 100);
         self.dogRight.position = CGPointMake(-50 , self.frame.size.height/2);
         self.dogRight.name = @"dogRight";
         self.dogRight.texture = [SKTexture textureWithImageNamed:@"dogRight"];
@@ -206,7 +206,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     [self addChild:self.duckExtraNode];
     
     // Determine speed of the monster
-    int minDuration = 1.0;
+    int minDuration = 1.5;
     int maxDuration = 4.0;
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
@@ -242,7 +242,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     [self addChild:self.duckTargetNode];
     
     // Determine speed of the monster
-    int minDuration = 1.0;
+    int minDuration = 1.5;
     int maxDuration = 4.0;
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
@@ -267,7 +267,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         self.lastForceSpawnTimeInterval = 0;
         
         //apply force to bullet
-        int randomXDirection = arc4random_uniform(400) + 0;
+        int randomXDirection = arc4random_uniform(400) + 1000;
         int randomNegative = arc4random_uniform(2) + 1;
         if (randomNegative == 1) {
             
@@ -296,7 +296,9 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
         SKAction * actionMove = [SKAction runBlock:^{
             [self.bulletNode.physicsBody applyForce:CGVectorMake(randomXDirection, 0)];
         }];
-        [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
+        
+        SKAction *delayAction = [SKAction waitForDuration:0.4];
+        [self.bulletNode runAction: [SKAction sequence:@[delayAction, actionMove]] withKey:@"bullet action"];
         
         //add target
         
@@ -309,7 +311,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     self.lastTargetSpawnTimeInterval += timeSinceLast;
     
     srand48(time(0));
-    double randomTime = drand48() + 1;
+    double randomTime = drand48() + 0.2;
     
     if (self.lastTargetSpawnTimeInterval > randomTime) {
         self.lastTargetSpawnTimeInterval = 0;
@@ -441,7 +443,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     //float velocity = 480.0/1.0;
     //float realMoveDuration = self.size.width / velocity;
     SKAction * actionMove = [SKAction runBlock:^{
-        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 4000)];
+        [self.bulletNode.physicsBody applyForce:CGVectorMake(0, 2500)];
     }];
     [self.bulletNode runAction:[SKAction sequence:@[actionMove]] withKey:@"bullet action"];
     
@@ -720,7 +722,7 @@ static const uint32_t powerUpCategory     =  0x1 << 1;
     
     // Create the actions
     
-    SKAction * animateSecretDog = [SKAction animateWithTextures:self.dogLeftAnimation timePerFrame:0.5];
+    SKAction * animateSecretDog = [SKAction animateWithTextures:self.dogLeftAnimation timePerFrame:0.1];
     SKAction * animateSecretDogForever = [SKAction repeatAction:animateSecretDog count:3];
     SKAction * secretDogMoveAction = [SKAction moveTo:CGPointMake(-self.secretDogNode.size.width/2, maxY) duration:minDuration];
     SKAction *groupSecretDogAction = [SKAction group:@[animateSecretDogForever, secretDogMoveAction]];
